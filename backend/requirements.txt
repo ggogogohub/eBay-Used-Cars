@@ -7,3 +7,5 @@ flask-cors==4.0.0
 flask-talisman==1.1.0
 sendgrid==6.11.0
 cloudinary==1.39.0
+flask-limiter==3.5.0
+marshmallow==3.20.1

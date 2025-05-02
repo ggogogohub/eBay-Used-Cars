@@ -60,28 +60,58 @@ Our API is built using a modern tech stack:
    # Clone the repository
    git clone <repository-url>
 
+   # Navigate to the project directory
+   cd ebay_used_cars
+   ```
+
+2. **Install Backend Dependencies**:
+
+   ```bash
    # Navigate to the backend directory
    cd backend
 
-   ```
-
-2. **Install Dependencies**:
-
-   ```bash
+   # Install Python dependencies
    pip install -r requirements.txt
    ```
 
 3. **Configure Your Database**:
-   Make sure MongoDB is running on your system (default: localhost:27017)
 
-4. **Start the API Server**:
+   ```bash
+   # Make sure MongoDB is running on your system (default: localhost:27017)
+
+   # Import the provided dataset (from project root directory)
+   cd ..
+   mongoimport --uri="mongodb://localhost:27017/ebay_used_cars" --collection=users --file="MongoDB Exported/ebay_used_cars.users.json" --jsonArray
+   mongoimport --uri="mongodb://localhost:27017/ebay_used_cars" --collection=listings --file="MongoDB Exported/ebay_used_cars.listings.json" --jsonArray
+
+   # Return to backend directory
+   cd backend
+   ```
+
+4. **Set Up Environment Variables**:
+
+   ```bash
+   # Create a .env file in the backend directory
+   echo "MONGODB_URI=mongodb://localhost:27017/ebay_used_cars
+   SECRET_KEY=mysecret
+   CLOUDINARY_CLOUD_NAME=your_cloud_name
+   CLOUDINARY_API_KEY=your_api_key
+   CLOUDINARY_API_SECRET=your_api_secret
+   SENDGRID_API_KEY=your_sendgrid_key
+   FROM_EMAIL=your_verified_email@example.com" > .env
+   ```
+
+5. **Start the API Server**:
 
    ```bash
    python app.py
    ```
 
-5. **Access the API**:
+6. **Access the API**:
    The API will be available at `http://localhost:5001`
+
+7. **Test with Provided Accounts**:
+   You can use the test accounts listed in the "Database Management" section below.
 
 ## 📘 API Documentation
 
@@ -188,30 +218,82 @@ The API is designed to be easily deployed to various environments:
 
 ## 🔄 Database Management
 
-### Exporting Data
+### Using the Provided Dataset
 
-To export data from MongoDB for backup or migration:
+This project comes with pre-exported MongoDB data in the `MongoDB Exported` directory:
+
+- `ebay_used_cars.users.json`: Contains user accounts with roles (admin, seller, buyer)
+- `ebay_used_cars.listings.json`: Contains car listings with details, images, and reviews
+
+#### Importing the Dataset
+
+To import the provided dataset into your MongoDB instance:
+
+```bash
+# Navigate to the project root directory
+cd /path/to/ebay_used_cars
+
+# Import users collection
+mongoimport --uri="mongodb://localhost:27017/ebay_used_cars" --collection=users --file="MongoDB Exported/ebay_used_cars.users.json" --jsonArray
+
+# Import listings collection
+mongoimport --uri="mongodb://localhost:27017/ebay_used_cars" --collection=listings --file="MongoDB Exported/ebay_used_cars.listings.json" --jsonArray
+```
+
+> **Note**: The `--jsonArray` flag is important as the export files are in JSON array format.
+
+#### Test User Accounts
+
+After importing the dataset, you can use these test accounts:
+
+| Username         | Password  | Role   |
+| ---------------- | --------- | ------ |
+| admin@cars.com   | admin123  | admin  |
+| seller@cars.com  | seller123 | seller |
+| buyer@cars.com   | buyer123  | buyer  |
+| seller2@cars.com | seller123 | seller |
+| buyer2@cars.com  | buyer123  | buyer  |
+
+### Exporting Your Data
+
+To export your MongoDB data for backup or migration:
 
 ```bash
 # Export users collection
-mongoexport --uri="mongodb://localhost:27017/automarket" --collection=users --out=users.json
+mongoexport --uri="mongodb://localhost:27017/ebay_used_cars" --collection=users --out=users.json --jsonArray
 
 # Export listings collection
-mongoexport --uri="mongodb://localhost:27017/automarket" --collection=listings --out=listings.json
+mongoexport --uri="mongodb://localhost:27017/ebay_used_cars" --collection=listings --out=listings.json --jsonArray
 
 # Export other collections as needed
 ```
 
-### Importing Data
+### Troubleshooting MongoDB Import/Export
 
-To import existing data:
+If you encounter issues with the import/export commands:
 
-```bash
-# Import users collection
-mongoimport --uri="mongodb://localhost:27017/automarket" --collection=users --file=users.json
+1. **MongoDB Tools Installation**: Ensure you have MongoDB Database Tools installed
 
-# Import listings collection
-mongoimport --uri="mongodb://localhost:27017/automarket" --collection=listings --file=listings.json
-```
+   ```bash
+   # For Windows (using chocolatey)
+   choco install mongodb-database-tools
+
+   # For macOS (using Homebrew)
+   brew install mongodb/brew/mongodb-database-tools
+
+   # For Ubuntu/Debian
+   sudo apt-get install mongodb-database-tools
+   ```
+
+2. **Path Issues**: Make sure the MongoDB tools are in your system PATH
+
+3. **Connection Issues**: Verify your MongoDB server is running
+
+   ```bash
+   # Check if MongoDB is running
+   mongosh
+   ```
+
+4. **Database Name**: Ensure you're using the correct database name (`ebay_used_cars`)
 
 ---
