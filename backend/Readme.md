@@ -218,12 +218,29 @@ The API is designed to be easily deployed to various environments:
 
 ## 🔄 Database Management
 
+### MongoDB Collections
+
+This project uses the following MongoDB collections:
+
+1. **Main Collections** (included in export files):
+
+   - **users**: User accounts with roles (admin, seller, buyer)
+   - **listings**: Car listings with details, images, and reviews
+
+2. **Supporting Collections** (created automatically):
+   - **blacklist**: Stores invalidated JWT tokens
+   - **refresh_tokens**: Manages authentication refresh tokens
+   - **reset_tokens**: Handles password reset functionality
+   - **csrf_tokens**: Stores CSRF tokens for security
+
 ### Using the Provided Dataset
 
 This project comes with pre-exported MongoDB data in the `MongoDB Exported` directory:
 
 - `ebay_used_cars.users.json`: Contains user accounts with roles (admin, seller, buyer)
 - `ebay_used_cars.listings.json`: Contains car listings with details, images, and reviews
+
+The supporting collections (blacklist, refresh_tokens, reset_tokens, csrf_tokens) are not included in the exports as they contain temporary data that is generated during application use.
 
 #### Importing the Dataset
 
