@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-This full-stack web application was developed as part of assignment at Ulster University. The project implements a comprehensive online marketplace for used cars, inspired by eBay Motors, allowing users to browse, buy, and sell used vehicles. The application demonstrates proficiency in modern web development technologies, security implementation, and responsive design principles.
+This full-stack web application was developed as part of the assignment for the Full Stack Web Development module at Ulster University. The project implements a comprehensive online marketplace for used cars, inspired by eBay Motors, allowing users to browse, buy, and sell used vehicles. The application demonstrates proficiency in modern web development technologies, security implementation, and responsive design principles.
 
 ## Table of Contents
 
@@ -67,10 +67,15 @@ eBay Used Cars
 │   └── External Service Integration
 │
 └── Database (MongoDB)
-    ├── Users Collection
-    ├── Listings Collection
-    ├── Reviews Collection
-    └── Token Management Collections
+    ├── Main Collections
+    │   ├── users - User accounts with roles
+    │   └── listings - Car listings with embedded reviews
+    │
+    └── Supporting Collections
+        ├── blacklist - Invalidated JWT tokens
+        ├── refresh_tokens - Authentication refresh tokens
+        ├── reset_tokens - Password reset functionality
+        └── csrf_tokens - CSRF protection
 ```
 
 ## Frontend Implementation
@@ -168,35 +173,44 @@ eBay Used Cars
 
 ### MongoDB Collections
 
-1. **Users Collection**:
+1. **Main Collections**:
 
-   - Username, email, password (hashed)
-   - Role (buyer, seller, admin)
-   - Auth0 ID (for Google authentication)
-   - Registration date
+   - **users**:
 
-2. **Listings Collection**:
+     - Username, email, password (hashed)
+     - Role (buyer, seller, admin)
+     - Auth0 ID (for Google authentication)
+     - Registration date
 
-   - Vehicle details (model, price, mileage, car type)
-   - Location information (text and coordinates)
-   - Status (active, sold, reported)
-   - Images (Cloudinary URLs)
-   - User ID (owner reference)
-   - Views count
-   - Creation and update timestamps
+   - **listings**:
+     - Vehicle details (model, price, mileage, car type)
+     - Location information (text and coordinates)
+     - Status (active, sold, reported)
+     - Images (Cloudinary URLs)
+     - User ID (owner reference)
+     - Views count
+     - Embedded reviews (rating, text, user, timestamp)
+     - Creation and update timestamps
 
-3. **Reviews Collection**:
+2. **Supporting Collections**:
 
-   - Rating (1-5)
-   - Review text
-   - User ID (reviewer)
-   - Listing ID
-   - Timestamps
+   - **blacklist**: Stores invalidated JWT tokens
+   - **refresh_tokens**: Manages authentication refresh tokens
+   - **reset_tokens**: Handles password reset functionality
+   - **csrf_tokens**: Stores CSRF tokens for security
 
-4. **Token Management Collections**:
-   - Refresh tokens
-   - Password reset tokens
-   - Token blacklist for logout
+### Test User Accounts
+
+The following test accounts are available after importing the dataset:
+
+| Username                | Password      | Role   |
+| ----------------------- | ------------- | ------ |
+| admin@cars.com          | admin123      | admin  |
+| seller@cars.com         | seller123     | seller |
+| buyer@cars.com          | buyer123      | buyer  |
+| seller2@cars.com        | seller123     | seller |
+| buyer2@cars.com         | buyer123      | buyer  |
+| badshasonu020@gmail.com | (Auth0 login) | admin  |
 
 ### Data Relationships
 
@@ -357,7 +371,13 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 # Install dependencies
 pip install -r requirements.txt
 
-# Start the backend server
+# Import MongoDB dataset (from project root directory)
+cd ..
+mongoimport --uri="mongodb://localhost:27017/ebay_used_cars" --collection=users --file="MongoDB Exported/ebay_used_cars.users.json" --jsonArray
+mongoimport --uri="mongodb://localhost:27017/ebay_used_cars" --collection=listings --file="MongoDB Exported/ebay_used_cars.listings.json" --jsonArray
+
+# Return to backend directory and start the server
+cd backend
 python app.py
 ```
 
@@ -367,11 +387,16 @@ python app.py
 
    ```
    MONGODB_URI=mongodb://localhost:27017/ebay_used_cars
-   JWT_SECRET_KEY=your_secret_key
+   MONGODB_DB=ebay_used_cars
+   SECRET_KEY=mysecret
    SENDGRID_API_KEY=your_sendgrid_api_key
+   FROM_EMAIL=your_verified_email@example.com
    CLOUDINARY_CLOUD_NAME=your_cloud_name
    CLOUDINARY_API_KEY=your_api_key
    CLOUDINARY_API_SECRET=your_api_secret
+   DEBUG=True
+   PORT=5001
+   FRONTEND_URL=http://localhost:4200
    ```
 
 2. Configure Auth0 in the frontend:
@@ -391,11 +416,13 @@ python app.py
 ### Frontend Testing
 
 1. Navigate to http://localhost:4200 in your browser
-2. Test user flows:
-   - Registration and login
+2. Use the test accounts provided in the [Test User Accounts](#test-user-accounts) section
+3. Test user flows:
+   - Login with different user roles (admin, seller, buyer)
    - Browsing and filtering listings
-   - Creating and managing listings
-   - Adding and managing reviews
+   - Creating and managing listings (seller accounts)
+   - Adding and managing reviews (buyer accounts)
+   - Administrative functions (admin account)
    - Profile management
 
 ## Academic Reflection
@@ -444,5 +471,5 @@ This project demonstrates proficiency in several key areas of modern web develop
 
 ---
 
-© 2025 eBay Used Cars Marketplace. This project was developed for academic purposes as part of the Advanced Web Development module at Ulster University.
-"# eBay-Used-Cars" 
+© 2025 eBay Used Cars Marketplace. This project was developed for academic purposes as part of assignment for the Full Stack Web Development module at Ulster University.
+"# eBay-Used-Cars"
