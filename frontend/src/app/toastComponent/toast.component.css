@@ -1,0 +1,76 @@
+.toast-container {
+  z-index: 1100;
+  max-width: 350px;
+}
+
+.toast {
+  opacity: 1;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border: none;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  margin-bottom: 0.75rem;
+  backdrop-filter: blur(10px);
+}
+
+.toast-header {
+  padding: 0.75rem 1rem;
+  color: white;
+  border-bottom: none;
+}
+
+.toast-body {
+  padding: 1rem;
+  background-color: var(--card-bg);
+  color: var(--text-primary);
+}
+
+.btn-close {
+  opacity: 0.8;
+}
+
+.btn-close:hover {
+  opacity: 1;
+}
+
+/* Toast animations */
+.fade-in {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Customize close button for different toast types */
+.bg-success .btn-close {
+  filter: invert(1) grayscale(100%) brightness(200%);
+}
+
+.bg-danger .btn-close {
+  filter: invert(1) grayscale(100%) brightness(200%);
+}
+
+/* Responsive adjustments */
+@media (max-width: 576px) {
+  .toast-container {
+    max-width: 100%;
+    width: 100%;
+    padding: 0.5rem;
+    top: auto;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+  
+  .toast {
+    width: 100%;
+  }
+}

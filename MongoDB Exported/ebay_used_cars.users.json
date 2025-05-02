@@ -1,0 +1,81 @@
+[{
+  "_id": {
+    "$oid": "68143a4befa526dc4dbe3df6"
+  },
+  "username": "admin@cars.com",
+  "password": {
+    "$binary": {
+      "base64": "JDJiJDEyJEdJdlQ1eDVOY2hOSkxYZDFDdnpsWnVBNjN0U3dIdWtLUjVPU1JSTy5nSnhCNjdlU0RTN2VD",
+      "subType": "00"
+    }
+  },
+  "role": "admin"
+},
+{
+  "_id": {
+    "$oid": "68143a4defa526dc4dbe3df7"
+  },
+  "username": "seller@cars.com",
+  "password": {
+    "$binary": {
+      "base64": "JDJiJDEyJGY3Yi40eDZKNzVKYU9ONEVIbjREVGU3UUouYi83eWpjOTBaQlhSSlhHWjRCNFhHZ2ZNQlk2",
+      "subType": "00"
+    }
+  },
+  "role": "seller"
+},
+{
+  "_id": {
+    "$oid": "68143a50efa526dc4dbe3df8"
+  },
+  "username": "buyer@cars.com",
+  "password": {
+    "$binary": {
+      "base64": "JDJiJDEyJHhmNXFhN2NTQmsvYXkwR2ZDOElKSU9EUzhyb0RXVkNYZFpranVxT2w0RUs3RjRNODhWdS5L",
+      "subType": "00"
+    }
+  },
+  "role": "buyer"
+},
+{
+  "_id": {
+    "$oid": "68143a52efa526dc4dbe3df9"
+  },
+  "username": "seller2@cars.com",
+  "password": {
+    "$binary": {
+      "base64": "JDJiJDEyJFA4anEuVGRvd3UyVFhGdEZSL2Zrby5IYVYyRDBKc0lBaWtKUC4wc2tjVmVWa1pTMkVqNGxt",
+      "subType": "00"
+    }
+  },
+  "role": "seller"
+},
+{
+  "_id": {
+    "$oid": "68143a55efa526dc4dbe3dfa"
+  },
+  "username": "buyer2@cars.com",
+  "password": {
+    "$binary": {
+      "base64": "JDJiJDEyJHdNd3AxSlQuSC5Fcy9mVTlsWi5YTWUyQ2Jsd3JWb2tXcjdLN1ZaWkdpYTR4QXpEby41bDNx",
+      "subType": "00"
+    }
+  },
+  "role": "buyer"
+},
+{
+  "_id": {
+    "$oid": "6814bfda002b1b94184666ec"
+  },
+  "username": "badshasonu020@gmail.com",
+  "email": "badshasonu020@gmail.com",
+  "name": "Sonu Thakur",
+  "auth0_id": "google-oauth2|117165283141758422325",
+  "role": "admin",
+  "password": {
+    "$binary": {
+      "base64": "JDJiJDEyJDAuLmZPWWUvTzY5L3Rwc0M1ZUNyZS40M3BPdHJqSUNWYjV3Qzh3RWU5NXRMMXh5TklkSkVh",
+      "subType": "00"
+    }
+  }
+}]

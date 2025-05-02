@@ -1,0 +1,179 @@
+<div class="create-listing-container">
+  <div class="create-listing-header">
+    <h1 class="page-title">Create New Listing</h1>
+    <p class="page-subtitle">Fill out the form below to create a new car listing.</p>
+  </div>
+
+  <!-- Alert Messages -->
+  <div class="alert-container" *ngIf="errorMessage || successMessage">
+    <div class="alert alert-danger" *ngIf="errorMessage">
+      <i class="bi bi-exclamation-triangle-fill me-2"></i>
+      {{ errorMessage }}
+    </div>
+    <div class="alert alert-success" *ngIf="successMessage">
+      <i class="bi bi-check-circle-fill me-2"></i>
+      {{ successMessage }}
+    </div>
+  </div>
+
+  <!-- Listing Form -->
+  <div class="form-container">
+    <div class="listing-card">
+      <div class="card-header">
+        <i class="bi bi-plus-circle me-2"></i>
+        <h2>Listing Details</h2>
+      </div>
+      <div class="card-body">
+        <form (ngSubmit)="submitListing()">
+          <div class="form-grid">
+            <!-- Vehicle Model -->
+            <div class="form-group">
+              <label for="vehicleModel" class="form-label">
+                <i class="bi bi-car-front me-2"></i>Vehicle Model*
+              </label>
+              <div class="input-container">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="vehicleModel"
+                  [(ngModel)]="newListing.vehicle_model"
+                  name="vehicle_model"
+                  placeholder="e.g. Ford F-150 2018"
+                  required
+                >
+              </div>
+              <div class="form-hint">Include make, model, and year</div>
+            </div>
+
+            <!-- Price -->
+            <div class="form-group">
+              <label for="price" class="form-label">
+                <i class="bi bi-currency-dollar me-2"></i>Price*
+              </label>
+              <div class="input-container">
+                <input
+                  type="number"
+                  class="form-control"
+                  id="price"
+                  [(ngModel)]="newListing.price"
+                  name="price"
+                  placeholder="e.g. 25000"
+                  min="1"
+                  required
+                >
+              </div>
+            </div>
+
+            <!-- Mileage -->
+            <div class="form-group">
+              <label for="mileage" class="form-label">
+                <i class="bi bi-speedometer2 me-2"></i>Mileage (miles)*
+              </label>
+              <div class="input-container">
+                <input
+                  type="number"
+                  class="form-control"
+                  id="mileage"
+                  [(ngModel)]="newListing.mileage"
+                  name="mileage"
+                  placeholder="e.g. 45000"
+                  min="0"
+                  required
+                >
+              </div>
+            </div>
+
+            <!-- Car Type -->
+            <div class="form-group">
+              <label for="carType" class="form-label">
+                <i class="bi bi-tag me-2"></i>Car Type*
+              </label>
+              <div class="select-container">
+                <select
+                  class="form-select"
+                  id="carType"
+                  [(ngModel)]="newListing.car_type"
+                  name="car_type"
+                  required
+                >
+                  <option value="" disabled selected>Select car type</option>
+                  <option *ngFor="let type of carTypes" [value]="type">{{ type | titlecase }}</option>
+                </select>
+                <i class="bi bi-chevron-down select-icon"></i>
+              </div>
+            </div>
+
+            <!-- Location -->
+            <div class="form-group full-width">
+              <label for="location" class="form-label">
+                <i class="bi bi-geo-alt me-2"></i>Location*
+              </label>
+              <div class="input-container">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="location"
+                  [(ngModel)]="newListing.location"
+                  name="location"
+                  placeholder="e.g. 123 Main St, Dallas, TX"
+                  required
+                  (blur)="previewLocation()"
+                >
+              </div>
+              <div class="form-hint">Enter a specific address for accurate map display</div>
+            </div>
+
+            <!-- Location Preview Map -->
+            <div class="form-group full-width" *ngIf="previewCoordinates">
+              <label class="form-label">
+                <i class="bi bi-map me-2"></i>Location Preview
+              </label>
+              <div class="map-wrapper">
+                <app-map
+                  [coordinates]="previewCoordinates"
+                  [locationName]="newListing.location"
+                  height="250px"
+                ></app-map>
+              </div>
+            </div>
+
+            <!-- Listing Age (Hidden, set to 0 by default) -->
+            <input type="hidden" [(ngModel)]="newListing.listing_age" name="listing_age" value="0">
+
+            <!-- Image Upload -->
+            <div class="form-group full-width">
+              <label class="form-label">
+                <i class="bi bi-image me-2"></i>Images*
+              </label>
+              <div class="upload-wrapper">
+                <app-image-upload
+                  [multiple]="true"
+                  [maxFiles]="5"
+                  (imagesUploaded)="onImagesUploaded($event)"
+                ></app-image-upload>
+              </div>
+              <div class="form-hint">Upload at least one image of your vehicle (max 5 images)</div>
+            </div>
+          </div>
+
+          <!-- Submit Button -->
+          <div class="form-actions">
+            <button
+              type="submit"
+              class="btn btn-create"
+              [disabled]="isLoading"
+            >
+              <span *ngIf="isLoading" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+              <i *ngIf="!isLoading" class="bi bi-plus-circle me-2"></i>
+              CREATE LISTING
+            </button>
+            <a [routerLink]="['/profile']" class="btn btn-cancel">
+              <i class="bi bi-x-circle me-2"></i>
+              CANCEL
+            </a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

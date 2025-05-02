@@ -1,0 +1,37 @@
+<navigation></navigation>
+<router-outlet></router-outlet>
+<app-toast></app-toast>
+
+<!-- Global Footer (only shown on non-home pages) -->
+<footer class="footer mt-5 w-100" *ngIf="!isHomePage">
+  <div class="container">
+    <div class="footer-content">
+      <div class="footer-logo">
+        <img src="assets/ebay_logo.png" alt="eBay Used Cars Logo" class="footer-logo-img">
+        <span>eBay Used Cars</span>
+      </div>
+      <div class="footer-links">
+        <a [routerLink]="['/']">Home</a>
+        <a [routerLink]="['/listings']">Listings</a>
+        <a [routerLink]="['/statistics']">Statistics</a>
+        <!-- Show Login/Register or Logout based on authentication status -->
+        <ng-container *ngIf="!isLoggedIn; else loggedInFooterLinks">
+          <a [routerLink]="['/auth']">Login/Register</a>
+        </ng-container>
+        <ng-template #loggedInFooterLinks>
+          <a [routerLink]="['/profile']">My Profile</a>
+          <a href="javascript:void(0)" (click)="logout()">Logout</a>
+        </ng-template>
+      </div>
+      <div class="footer-social">
+        <a href="https://github.com/ggogogohub" target="_blank" title="GitHub">
+          <i class="bi bi-github"></i>
+        </a>
+      </div>
+      <div class="footer-copyright">
+        &copy; 2025 eBay Used Cars Marketplace. All rights reserved. |
+        <a href="https://github.com/ggogogohub" target="_blank">Developer GitHub</a>
+      </div>
+    </div>
+  </div>
+</footer>

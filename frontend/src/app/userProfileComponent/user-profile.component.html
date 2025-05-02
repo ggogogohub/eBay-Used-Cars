@@ -1,0 +1,270 @@
+<div class="profile-container">
+  <div class="profile-header">
+    <h1 class="profile-title">My Profile</h1>
+  </div>
+
+  <!-- Loading State -->
+  <div class="loading-container" *ngIf="isLoading">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    <p class="mt-2">Loading profile...</p>
+  </div>
+
+  <!-- Error Message -->
+  <div class="error-container" *ngIf="errorMessage">
+    <div class="alert alert-danger">{{ errorMessage }}</div>
+  </div>
+
+  <!-- Profile Information -->
+  <div class="profile-content" *ngIf="userProfile && !isLoading">
+    <div class="profile-card">
+      <div class="card dark-card">
+        <div class="card-header">
+          <h4 class="mb-0"><i class="bi bi-person-circle me-2"></i>Account Information</h4>
+        </div>
+        <div class="card-body">
+          <div class="info-row">
+            <span class="info-label">Username:</span>
+            <span class="info-value">{{ userProfile.username }}</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Account Type:</span>
+            <span class="info-value">{{ userProfile.role | titlecase }}</span>
+          </div>
+        </div>
+        <div class="card-footer">
+          <button class="btn btn-change-password" (click)="openChangePasswordModal()">CHANGE PASSWORD</button>
+          <button class="btn btn-logout" (click)="logout()">LOGOUT</button>
+          <button class="btn btn-delete" (click)="confirmDeleteAccount()">DELETE ACCOUNT</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Seller Listings (only for sellers) -->
+    <div class="listings-card" *ngIf="userProfile.role === 'seller'">
+      <div class="card dark-card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <h4 class="mb-0"><i class="bi bi-list-ul me-2"></i>My Listings</h4>
+          <a [routerLink]="['/create-listing']" class="btn btn-add">ADD NEW LISTING</a>
+        </div>
+        <div class="card-body">
+          <!-- Loading indicator -->
+          <div *ngIf="isLoading" class="loading-container">
+            <div class="spinner-border text-primary" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+            <p class="mt-2">Processing your request...</p>
+          </div>
+
+          <!-- Error message -->
+          <div *ngIf="errorMessage" class="alert alert-danger">
+            {{ errorMessage }}
+            <button class="btn-close float-end" (click)="errorMessage = ''"></button>
+          </div>
+
+          <!-- No listings message -->
+          <div *ngIf="userListings.length === 0 && !isLoading" class="empty-listings">
+            <i class="bi bi-clipboard-x empty-icon mb-3"></i>
+            <p>You haven't created any listings yet.</p>
+          </div>
+
+          <div class="listings-container">
+            <div *ngFor="let listing of userListings" class="listing-item">
+              <div class="listing-header">
+                <h5 class="listing-title">{{ listing.vehicle_model }}</h5>
+                <div class="listing-meta">
+                  <span class="badge status-badge me-2" [ngClass]="{
+                    'active': listing.status === 'active',
+                    'sold': listing.status === 'sold',
+                    'reported': listing.status === 'reported'
+                  }">
+                    <i *ngIf="listing.status === 'sold'" class="bi bi-check-circle-fill me-1"></i>
+                    <i *ngIf="listing.status === 'active'" class="bi bi-tag-fill me-1"></i>
+                    <i *ngIf="listing.status === 'reported'" class="bi bi-flag-fill me-1"></i>
+                    {{ listing.status | uppercase }}
+                  </span>
+                  <span class="listing-price">${{ listing.price }}</span>
+                </div>
+              </div>
+              <div class="listing-details">{{ listing.car_type | titlecase }} | {{ listing.mileage }} miles | {{ listing.location }}</div>
+              <div class="listing-stats">
+                <span>Views: {{ listing.views }}</span>
+                <span>Age: {{ listing | listingAge }}</span>
+              </div>
+
+              <div class="listing-actions">
+                <!-- View Listing Button -->
+                <a [routerLink]="['/listings', listing._id]" class="btn btn-view">
+                  VIEW LISTING
+                </a>
+
+                <!-- Edit Listing Button (only for active listings) -->
+                <a *ngIf="listing.status === 'active'"
+                   [routerLink]="['/edit-listing', listing._id]"
+                   class="btn btn-edit">
+                  EDIT LISTING
+                </a>
+
+                <!-- Mark as Sold Button (only for active listings) -->
+                <button *ngIf="listing.status === 'active'"
+                        class="btn btn-mark-sold"
+                        (click)="markListingAsSold(listing._id, $event)">
+                  MARK AS SOLD
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Delete Account Confirmation Modal -->
+  <div class="modal custom-modal" [class.show]="showDeleteConfirm" [style.display]="showDeleteConfirm ? 'block' : 'none'">
+    <div class="modal-dialog">
+      <div class="modal-content dark-modal">
+        <div class="modal-header modal-header-danger">
+          <h5 class="modal-title"><i class="bi bi-trash me-2"></i>Confirm Account Deletion</h5>
+          <button type="button" class="btn-close btn-close-white" (click)="cancelDeleteAccount()"></button>
+        </div>
+        <div class="modal-body">
+          <div class="modal-icon-container">
+            <i class="bi bi-exclamation-triangle-fill modal-icon"></i>
+          </div>
+          <p class="text-center mb-4 modal-text">Are you sure you want to delete your account? This action cannot be undone.</p>
+          <p class="warning-text">All your data, including listings and reviews, will be permanently removed.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-cancel" (click)="cancelDeleteAccount()">
+            CANCEL
+          </button>
+          <button type="button" class="btn btn-delete-confirm" (click)="deleteAccount()">
+            <span *ngIf="isLoading" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+            DELETE ACCOUNT
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mark as Sold Confirmation Modal -->
+  <div class="modal custom-modal" [class.show]="showSoldModal" [style.display]="showSoldModal ? 'block' : 'none'">
+    <div class="modal-dialog">
+      <div class="modal-content dark-modal">
+        <div class="modal-header modal-header-primary">
+          <h5 class="modal-title"><i class="bi bi-check-circle me-2"></i>Mark Listing as Sold</h5>
+          <button type="button" class="btn-close btn-close-white" (click)="cancelMarkAsSold()"></button>
+        </div>
+        <div class="modal-body">
+          <p class="modal-text">Are you sure you want to mark this listing as sold? This action cannot be undone.</p>
+          <p class="modal-text mb-4">Once marked as sold, the listing will no longer appear in active searches.</p>
+
+          <div *ngIf="selectedListing" class="listing-details-container">
+            <div class="detail-row">
+              <span class="detail-label">Vehicle:</span>
+              <span class="detail-value">{{ selectedListing.vehicle_model }}</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Price:</span>
+              <span class="detail-value">${{ selectedListing.price }}</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Type:</span>
+              <span class="detail-value">{{ selectedListing.car_type }}</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Location:</span>
+              <span class="detail-value">{{ selectedListing.location }}</span>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-cancel" (click)="cancelMarkAsSold()">
+            CANCEL
+          </button>
+          <button type="button" class="btn btn-update" (click)="confirmMarkAsSold()">
+            <span *ngIf="isLoading" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+            MARK AS SOLD
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Change Password Modal -->
+  <div class="modal custom-modal" [class.show]="showChangePasswordModal" [style.display]="showChangePasswordModal ? 'block' : 'none'">
+    <div class="modal-dialog">
+      <div class="modal-content dark-modal">
+        <div class="modal-header modal-header-primary">
+          <h5 class="modal-title"><i class="bi bi-key me-2"></i>Change Password</h5>
+          <button type="button" class="btn-close btn-close-white" (click)="closeChangePasswordModal()"></button>
+        </div>
+        <div class="modal-body">
+          <form (ngSubmit)="changePassword()">
+            <!-- Error Message -->
+            <div class="alert alert-danger mb-3" *ngIf="passwordError">
+              {{ passwordError }}
+            </div>
+
+            <!-- Current Password -->
+            <div class="mb-3">
+              <label for="currentPassword" class="form-label">Current Password</label>
+              <input
+                type="password"
+                class="form-control"
+                id="currentPassword"
+                [(ngModel)]="passwordForm.currentPassword"
+                name="currentPassword"
+                required
+                [disabled]="isChangingPassword"
+              >
+            </div>
+
+            <!-- New Password -->
+            <div class="mb-3">
+              <label for="newPassword" class="form-label">New Password</label>
+              <input
+                type="password"
+                class="form-control"
+                id="newPassword"
+                [(ngModel)]="passwordForm.newPassword"
+                name="newPassword"
+                required
+                [disabled]="isChangingPassword"
+              >
+              <small class="form-text text-muted">Password must be at least 8 characters long</small>
+            </div>
+
+            <!-- Confirm New Password -->
+            <div class="mb-3">
+              <label for="confirmPassword" class="form-label">Confirm New Password</label>
+              <input
+                type="password"
+                class="form-control"
+                id="confirmPassword"
+                [(ngModel)]="passwordForm.confirmPassword"
+                name="confirmPassword"
+                required
+                [disabled]="isChangingPassword"
+              >
+            </div>
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-cancel" (click)="closeChangePasswordModal()" [disabled]="isChangingPassword">
+                CANCEL
+              </button>
+              <button type="submit" class="btn btn-update" [disabled]="isChangingPassword">
+                <span *ngIf="isChangingPassword" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                CHANGE PASSWORD
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Backdrop -->
+  <div class="modal-backdrop fade show" *ngIf="showDeleteConfirm || showSoldModal || showChangePasswordModal"></div>
+</div>

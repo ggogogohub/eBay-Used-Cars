@@ -1,0 +1,845 @@
+[{
+  "_id": {
+    "$oid": "68143ff2fb8f146f65e383de"
+  },
+  "vehicle_model": "Toyota Tacoma XLT 2018",
+  "price": 14900,
+  "mileage": 55,
+  "location": "606 Cherry St, Corpus Christi, TX 78401",
+  "car_type": "sedan",
+  "listing_age": 9,
+  "coordinates": {
+    "type": "Point",
+    "coordinates": [
+      -97.3975463,
+      27.7358015
+    ]
+  },
+  "images": [
+    {
+      "public_id": "ebay_used_cars/seller@cars.com/efbiut0gz1tdzf5kpqug",
+      "url": "https://res.cloudinary.com/dhp2ieqda/image/upload/v1746158782/ebay_used_cars/seller%40cars.com/efbiut0gz1tdzf5kpqug.jpg"
+    }
+  ],
+  "reviews": [
+    {
+      "_id": {
+        "$oid": "6814c10f002b1b94184666f8"
+      },
+      "user": "buyer@cars.com",
+      "review_text": "Great truck! Runs well and has low mileage. The only issue was a small dent on the passenger side.",
+      "rating": 4,
+      "created_at": {
+        "$date": "2025-05-02T12:56:47.318Z"
+      }
+    },
+    {
+      "_id": {
+        "$oid": "6814c58a002b1b941846670e"
+      },
+      "user": "buyer2@cars.com",
+      "review_text": "Solid sedan with great off-road capabilities. Comfortable for long trips and has plenty of cargo space. Fuel economy could be better, but that's expected for this type of vehicle.",
+      "rating": 5,
+      "created_at": {
+        "$date": "2025-05-02T13:15:54.913Z"
+      }
+    }
+  ],
+  "views": 41,
+  "user_id": "68143a4defa526dc4dbe3df7",
+  "status": "active"
+},
+{
+  "_id": {
+    "$oid": "68143ff2fb8f146f65e383df"
+  },
+  "vehicle_model": "Nissan Murano LX 2022",
+  "price": 23000,
+  "mileage": 24,
+  "location": "101 Maple Valley, San Antonio, TX 78227, USA",
+  "car_type": "suv",
+  "listing_age": 17,
+  "coordinates": {
+    "type": "Point",
+    "coordinates": [
+      -98.6427,
+      29.373739
+    ]
+  },
+  "images": [
+    {
+      "public_id": "ebay_used_cars/seller@cars.com/x40djnh0gjkcjb2txy7u",
+      "url": "https://res.cloudinary.com/dhp2ieqda/image/upload/v1746158874/ebay_used_cars/seller%40cars.com/x40djnh0gjkcjb2txy7u.jpg"
+    }
+  ],
+  "reviews": [
+    {
+      "_id": {
+        "$oid": "6814c139002b1b94184666f9"
+      },
+      "user": "buyer@cars.com",
+      "review_text": "Absolutely love this SUV! It's practically new and drives like a dream. The seller was very responsive and honest about the vehicle's condition.",
+      "rating": 5,
+      "created_at": {
+        "$date": "2025-05-02T12:57:29.317Z"
+      }
+    }
+  ],
+  "views": 29,
+  "user_id": "68143a4defa526dc4dbe3df7",
+  "status": "active"
+},
+{
+  "_id": {
+    "$oid": "68143ff2fb8f146f65e383e0"
+  },
+  "vehicle_model": "Honda Accord SE 2019",
+  "price": 14762,
+  "mileage": 50,
+  "location": "505 N Walnut Creek Dr, Mansfield, TX 76063, USA",
+  "car_type": "hatchback",
+  "listing_age": 21,
+  "coordinates": {
+    "type": "Point",
+    "coordinates": [
+      -97.1339462,
+      32.5705856
+    ]
+  },
+  "images": [
+    {
+      "public_id": "ebay_used_cars/seller@cars.com/ur7cdbpwsllefavayfeb",
+      "url": "https://res.cloudinary.com/dhp2ieqda/image/upload/v1746158911/ebay_used_cars/seller%40cars.com/ur7cdbpwsllefavayfeb.jpg"
+    }
+  ],
+  "reviews": [
+    {
+      "_id": {
+        "$oid": "6814c162002b1b94184666fa"
+      },
+      "user": "buyer@cars.com",
+      "review_text": "Car runs well but has some cosmetic issues that weren't mentioned in the listing. Interior has some wear and tear.",
+      "rating": 3,
+      "created_at": {
+        "$date": "2025-05-02T12:58:10.120Z"
+      }
+    }
+  ],
+  "views": 39,
+  "user_id": "68143a4defa526dc4dbe3df7",
+  "status": "active"
+},
+{
+  "_id": {
+    "$oid": "68143ff2fb8f146f65e383e1"
+  },
+  "vehicle_model": "Kia Forte XLT 2021",
+  "price": 26500,
+  "mileage": 33,
+  "location": "789 Pine Rd, Poolville, TX 76487, USA",
+  "car_type": "sedan",
+  "listing_age": 16,
+  "coordinates": {
+    "type": "Point",
+    "coordinates": [
+      -97.8783344,
+      32.966887
+    ]
+  },
+  "images": [
+    {
+      "public_id": "ebay_used_cars/seller@cars.com/dytudvt85v3qkw5jfa7u",
+      "url": "https://res.cloudinary.com/dhp2ieqda/image/upload/v1746159013/ebay_used_cars/seller%40cars.com/dytudvt85v3qkw5jfa7u.jpg"
+    }
+  ],
+  "reviews": [],
+  "views": 32,
+  "user_id": "68143a4defa526dc4dbe3df7",
+  "status": "active"
+},
+{
+  "_id": {
+    "$oid": "68143ff2fb8f146f65e383e2"
+  },
+  "vehicle_model": "BMW X5 SL 2016",
+  "price": 17840,
+  "mileage": 76,
+  "location": "303 El Paso St, El Paso, TX 79901, USA",
+  "car_type": "suv",
+  "listing_age": 27,
+  "coordinates": {
+    "type": "Point",
+    "coordinates": [
+      -106.4900246,
+      31.7589249
+    ]
+  },
+  "images": [
+    {
+      "public_id": "ebay_used_cars/seller@cars.com/scupbexrog2ctwokakz1",
+      "url": "https://res.cloudinary.com/dhp2ieqda/image/upload/v1746178707/ebay_used_cars/seller%40cars.com/scupbexrog2ctwokakz1.jpg"
+    }
+  ],
+  "reviews": [
+    {
+      "_id": {
+        "$oid": "6814c196002b1b94184666fb"
+      },
+      "user": "buyer@cars.com",
+      "review_text": "Excellent luxury SUV! The engine is powerful and smooth. Interior is in great condition despite being a 2016 model.",
+      "rating": 5,
+      "created_at": {
+        "$date": "2025-05-02T12:59:02.005Z"
+      }
+    },
+    {
+      "_id": {
+        "$oid": "6814c5b5002b1b941846670f"
+      },
+      "user": "buyer2@cars.com",
+      "review_text": "Average suv that gets the job done. Nothing particularly impressive but no major issues either. Good value for the price I paid.",
+      "rating": 3,
+      "created_at": {
+        "$date": "2025-05-02T13:16:37.232Z"
+      }
+    }
+  ],
+  "views": 30,
+  "user_id": "68143a4defa526dc4dbe3df7",
+  "status": "active"
+},
+{
+  "_id": {
+    "$oid": "68143ff2fb8f146f65e383e3"
+  },
+  "vehicle_model": "Kia Soul SE 2021",
+  "price": 25937,
+  "mileage": 26,
+  "location": "606 Cherry St, Corpus Christi, TX 78401",
+  "car_type": "sedan",
+  "listing_age": 3,
+  "coordinates": {
+    "type": "Point",
+    "coordinates": [
+      -97.3975463,
+      27.7358015
+    ]
+  },
+  "images": [
+    {
+      "public_id": "ebay_used_cars/seller@cars.com/efdiv31qc7vhy8lsakbc",
+      "url": "https://res.cloudinary.com/dhp2ieqda/image/upload/v1746178921/ebay_used_cars/seller%40cars.com/efdiv31qc7vhy8lsakbc.jpg"
+    }
+  ],
+  "reviews": [],
+  "views": 24,
+  "user_id": "68143a4defa526dc4dbe3df7",
+  "status": "active"
+},
+{
+  "_id": {
+    "$oid": "68143ff2fb8f146f65e383e4"
+  },
+  "vehicle_model": "Hyundai Kona SE 2015",
+  "price": 18864,
+  "mileage": 89,
+  "location": "303 El Paso St, El Paso, TX 79901, USA",
+  "car_type": "sedan",
+  "listing_age": 14,
+  "coordinates": {
+    "type": "Point",
+    "coordinates": [
+      -106.4900246,
+      31.7589249
+    ]
+  },
+  "images": [
+    {
+      "public_id": "ebay_used_cars/seller@cars.com/u4dkgyn7jxarh90vfghx",
+      "url": "https://res.cloudinary.com/dhp2ieqda/image/upload/v1746178837/ebay_used_cars/seller%40cars.com/u4dkgyn7jxarh90vfghx.png"
+    }
+  ],
+  "reviews": [
+    {
+      "_id": {
+        "$oid": "6814c1cd002b1b94184666fc"
+      },
+      "user": "buyer@cars.com",
+      "review_text": "High mileage and showing its age. Several mechanical issues appeared shortly after purchase. Would not recommend.",
+      "rating": 2,
+      "created_at": {
+        "$date": "2025-05-02T12:59:57.950Z"
+      }
+    }
+  ],
+  "views": 17,
+  "user_id": "68143a4defa526dc4dbe3df7",
+  "status": "active"
+},
+{
+  "_id": {
+    "$oid": "68143ff2fb8f146f65e383e5"
+  },
+  "vehicle_model": "Hyundai Tucson Touring 2020",
+  "price": 22400,
+  "mileage": 37,
+  "location": "606 Cherry St, Corpus Christi, TX 78401",
+  "car_type": "hatchback",
+  "listing_age": 3,
+  "coordinates": {
+    "type": "Point",
+    "coordinates": [
+      -97.3975463,
+      27.7358015
+    ]
+  },
+  "images": [
+    {
+      "public_id": "ebay_used_cars/seller@cars.com/n53asht9fbxpphtlbzk7",
+      "url": "https://res.cloudinary.com/dhp2ieqda/image/upload/v1746159082/ebay_used_cars/seller%40cars.com/n53asht9fbxpphtlbzk7.jpg"
+    }
+  ],
+  "reviews": [
+    {
+      "_id": {
+        "$oid": "6814c1fb002b1b94184666fd"
+      },
+      "user": "buyer@cars.com",
+      "review_text": "Very comfortable ride with great features. The panoramic sunroof is amazing! Only downside is the fuel economy could be better.",
+      "rating": 4,
+      "created_at": {
+        "$date": "2025-05-02T13:00:43.701Z"
+      }
+    }
+  ],
+  "views": 25,
+  "user_id": "68143a4defa526dc4dbe3df7",
+  "status": "active"
+},
+{
+  "_id": {
+    "$oid": "68143ff2fb8f146f65e383e6"
+  },
+  "vehicle_model": "Toyota RAV4 Sport 2018",
+  "price": 13538,
+  "mileage": 58,
+  "location": "202 Elm St, Fort Worth, TX 76102",
+  "car_type": "hatchback",
+  "listing_age": 5,
+  "coordinates": {
+    "type": "Point",
+    "coordinates": [
+      -97.3272602,
+      32.7588177
+    ]
+  },
+  "images": [
+    {
+      "public_id": "ebay_used_cars/seller@cars.com/v0zimxeouk5m8da6bfm5",
+      "url": "https://res.cloudinary.com/dhp2ieqda/image/upload/v1746178538/ebay_used_cars/seller%40cars.com/v0zimxeouk5m8da6bfm5.jpg"
+    }
+  ],
+  "reviews": [
+    {
+      "_id": {
+        "$oid": "6814c22a002b1b94184666fe"
+      },
+      "user": "buyer@cars.com",
+      "review_text": "Perfect family vehicle! Spacious, reliable, and great on gas. The seller was honest and provided all maintenance records.",
+      "rating": 5,
+      "created_at": {
+        "$date": "2025-05-02T13:01:30.912Z"
+      }
+    },
+    {
+      "_id": {
+        "$oid": "6814c4fa002b1b941846670c"
+      },
+      "user": "buyer2@cars.com",
+      "review_text": "Very reliable car with good performance. The interior is comfortable and well-designed. Only giving 4 stars because the cargo space is a bit limited for my needs.",
+      "rating": 4,
+      "created_at": {
+        "$date": "2025-05-02T13:13:30.488Z"
+      }
+    }
+  ],
+  "views": 54,
+  "user_id": "68143a4defa526dc4dbe3df7",
+  "status": "active"
+},
+{
+  "_id": {
+    "$oid": "68143ff2fb8f146f65e383e7"
+  },
+  "vehicle_model": "Honda CR-V XLT 2020",
+  "price": 16195,
+  "mileage": 44,
+  "location": "2225 N Harwood St, Dallas, TX 75201, USA",
+  "car_type": "sedan",
+  "listing_age": 10,
+  "coordinates": {
+    "type": "Point",
+    "coordinates": [
+      -96.8039528,
+      32.7908608
+    ]
+  },
+  "images": [
+    {
+      "public_id": "ebay_used_cars/seller@cars.com/rnizoo86xdbsd0saovbk",
+      "url": "https://res.cloudinary.com/dhp2ieqda/image/upload/v1746178376/ebay_used_cars/seller%40cars.com/rnizoo86xdbsd0saovbk.jpg"
+    }
+  ],
+  "reviews": [
+    {
+      "_id": {
+        "$oid": "6814c261002b1b94184666ff"
+      },
+      "user": "buyer@cars.com",
+      "review_text": "Reliable Honda quality as expected. The car is in great condition and drives smoothly. Good value for the price.",
+      "rating": 4,
+      "created_at": {
+        "$date": "2025-05-02T13:02:25.146Z"
+      }
+    },
+    {
+      "_id": {
+        "$oid": "6814c4dc002b1b941846670b"
+      },
+      "user": "buyer2@cars.com",
+      "review_text": "Disappointed with this purchase. Multiple mechanical issues appeared shortly after buying. Fuel economy is much worse than advertised and the A/C struggles in hot weather.",
+      "rating": 2,
+      "created_at": {
+        "$date": "2025-05-02T13:13:00.268Z"
+      }
+    }
+  ],
+  "views": 31,
+  "user_id": "68143a4defa526dc4dbe3df7",
+  "status": "active"
+},
+{
+  "_id": {
+    "$oid": "68143ff2fb8f146f65e383e8"
+  },
+  "vehicle_model": "Audi A6 EX 2023",
+  "price": 23407,
+  "mileage": 88,
+  "location": "505 N Walnut Creek Dr, Mansfield, TX 76063, USA",
+  "car_type": "suv",
+  "listing_age": 2,
+  "coordinates": {
+    "type": "Point",
+    "coordinates": [
+      -97.1339462,
+      32.5705856
+    ]
+  },
+  "images": [
+    {
+      "public_id": "ebay_used_cars/seller2@cars.com/opp28fyn4zreb1umd5vs",
+      "url": "https://res.cloudinary.com/dhp2ieqda/image/upload/v1746192712/ebay_used_cars/seller2%40cars.com/opp28fyn4zreb1umd5vs.webp"
+    },
+    {
+      "public_id": "ebay_used_cars/seller2@cars.com/aet06pcemihxviir01yd",
+      "url": "https://res.cloudinary.com/dhp2ieqda/image/upload/v1746192713/ebay_used_cars/seller2%40cars.com/aet06pcemihxviir01yd.webp"
+    },
+    {
+      "public_id": "ebay_used_cars/seller2@cars.com/jffg3w3z4srxfrff3rut",
+      "url": "https://res.cloudinary.com/dhp2ieqda/image/upload/v1746192713/ebay_used_cars/seller2%40cars.com/jffg3w3z4srxfrff3rut.webp"
+    },
+    {
+      "public_id": "ebay_used_cars/seller2@cars.com/obsxapvznkf0ngwxz088",
+      "url": "https://res.cloudinary.com/dhp2ieqda/image/upload/v1746192714/ebay_used_cars/seller2%40cars.com/obsxapvznkf0ngwxz088.webp"
+    },
+    {
+      "public_id": "ebay_used_cars/seller2@cars.com/wcetvumeuxbhc61dnppc",
+      "url": "https://res.cloudinary.com/dhp2ieqda/image/upload/v1746192714/ebay_used_cars/seller2%40cars.com/wcetvumeuxbhc61dnppc.webp"
+    }
+  ],
+  "reviews": [
+    {
+      "_id": "6814c514002b1b941846670d",
+      "created_at": "Fri, 02 May 2025 13:13:56 GMT",
+      "rating": 5,
+      "review_text": "Exceptional luxury vehicle! The ride quality is outstanding and the premium sound system is amazing. Every feature works perfectly and the car looks brand new.",
+      "user": "buyer2@cars.com"
+    }
+  ],
+  "views": 18,
+  "user_id": "68143a52efa526dc4dbe3df9",
+  "status": "active"
+},
+{
+  "_id": {
+    "$oid": "68143ff2fb8f146f65e383e9"
+  },
+  "vehicle_model": "Chevrolet Equinox Limited 2018",
+  "price": 18277,
+  "mileage": 57,
+  "location": "123 Main St, Austin, TX 78701",
+  "car_type": "hatchback",
+  "listing_age": 3,
+  "coordinates": {
+    "type": "Point",
+    "coordinates": [
+      -97.7619053,
+      30.3026459
+    ]
+  },
+  "images": [
+    {
+      "public_id": "ebay_used_cars/seller2@cars.com/ejiv7lgcrhxg4g5kgal8",
+      "url": "https://res.cloudinary.com/dhp2ieqda/image/upload/v1746180056/ebay_used_cars/seller2%40cars.com/ejiv7lgcrhxg4g5kgal8.jpg"
+    }
+  ],
+  "reviews": [
+    {
+      "_id": {
+        "$oid": "6814c367002b1b9418466702"
+      },
+      "user": "buyer@cars.com",
+      "review_text": "Decent car but has some issues with the transmission. Seller was upfront about it and adjusted the price accordingly.",
+      "rating": 4,
+      "created_at": {
+        "$date": "2025-05-02T13:06:47.356Z"
+      }
+    }
+  ],
+  "views": 49,
+  "user_id": "68143a52efa526dc4dbe3df9",
+  "status": "active"
+},
+{
+  "_id": {
+    "$oid": "68143ff2fb8f146f65e383ea"
+  },
+  "vehicle_model": "BMW 5 Series Touring 2016",
+  "price": 17864,
+  "mileage": 83,
+  "location": "123 Main St, Austin, TX 78701",
+  "car_type": "truck",
+  "listing_age": 17,
+  "coordinates": {
+    "type": "Point",
+    "coordinates": [
+      -97.7619053,
+      30.3026459
+    ]
+  },
+  "images": [
+    {
+      "public_id": "ebay_used_cars/seller2@cars.com/aasgssn6jf4zf2u56r8d",
+      "url": "https://res.cloudinary.com/dhp2ieqda/image/upload/v1746179902/ebay_used_cars/seller2%40cars.com/aasgssn6jf4zf2u56r8d.jpg"
+    }
+  ],
+  "reviews": [],
+  "views": 50,
+  "user_id": "68143a52efa526dc4dbe3df9",
+  "status": "active"
+},
+{
+  "_id": {
+    "$oid": "68143ff2fb8f146f65e383eb"
+  },
+  "vehicle_model": "Toyota RAV4 EX 2015",
+  "price": 10153,
+  "mileage": 90,
+  "location": "101 Maple Valley, San Antonio, TX 78227, USA",
+  "car_type": "sedan",
+  "listing_age": 12,
+  "coordinates": {
+    "type": "Point",
+    "coordinates": [
+      -98.6427,
+      29.373739
+    ]
+  },
+  "images": [
+    {
+      "public_id": "ebay_used_cars/seller2@cars.com/lenrzzeztlzgcflzq2xr",
+      "url": "https://res.cloudinary.com/dhp2ieqda/image/upload/v1746179836/ebay_used_cars/seller2%40cars.com/lenrzzeztlzgcflzq2xr.jpg"
+    }
+  ],
+  "reviews": [
+    {
+      "_id": {
+        "$oid": "6814c4b5002b1b941846670a"
+      },
+      "user": "buyer2@cars.com",
+      "review_text": "Decent vehicle but has some minor issues. The engine runs well but there's a slight rattle at high speeds. Interior is showing some wear for its age.",
+      "rating": 3,
+      "created_at": {
+        "$date": "2025-05-02T13:12:21.698Z"
+      }
+    }
+  ],
+  "views": 23,
+  "user_id": "68143a52efa526dc4dbe3df9",
+  "status": "active"
+},
+{
+  "_id": {
+    "$oid": "68143ff2fb8f146f65e383ec"
+  },
+  "vehicle_model": "BMW 5 Series Touring 2022",
+  "price": 23132,
+  "mileage": 23,
+  "location": "456 Oak Pl, Houston, TX 77006, USA",
+  "car_type": "sedan",
+  "listing_age": 21,
+  "coordinates": {
+    "type": "Point",
+    "coordinates": [
+      -95.379196,
+      29.7515423
+    ]
+  },
+  "images": [
+    {
+      "public_id": "ebay_used_cars/seller2@cars.com/g5knouvzg3qrmydves7p",
+      "url": "https://res.cloudinary.com/dhp2ieqda/image/upload/v1746179762/ebay_used_cars/seller2%40cars.com/g5knouvzg3qrmydves7p.jpg"
+    }
+  ],
+  "reviews": [
+    {
+      "_id": {
+        "$oid": "6814c390002b1b9418466703"
+      },
+      "user": "buyer@cars.com",
+      "review_text": "Absolutely stunning car! The performance is incredible and it has every luxury feature you could want. Worth every penny.",
+      "rating": 5,
+      "created_at": {
+        "$date": "2025-05-02T13:07:28.945Z"
+      }
+    },
+    {
+      "_id": {
+        "$oid": "6814c48c002b1b9418466709"
+      },
+      "user": "buyer2@cars.com",
+      "review_text": "Perfect family vehicle! Spacious interior, comfortable seating, and excellent safety features. The transaction was smooth and the seller was very professional.",
+      "rating": 4,
+      "created_at": {
+        "$date": "2025-05-02T13:11:49.935Z"
+      }
+    }
+  ],
+  "views": 32,
+  "user_id": "68143a52efa526dc4dbe3df9",
+  "status": "active"
+},
+{
+  "_id": {
+    "$oid": "68143ff2fb8f146f65e383ed"
+  },
+  "vehicle_model": "Audi A4 Sport 2023",
+  "price": 23478,
+  "mileage": 93,
+  "location": "707 Spruce Ct, Plano, TX 75075, USA",
+  "car_type": "sedan",
+  "listing_age": 22,
+  "coordinates": {
+    "type": "Point",
+    "coordinates": [
+      -96.725778,
+      33.016848
+    ]
+  },
+  "images": [
+    {
+      "public_id": "ebay_used_cars/seller2@cars.com/ufrp3rn8xaqnlzoek84i",
+      "url": "https://res.cloudinary.com/dhp2ieqda/image/upload/v1746179705/ebay_used_cars/seller2%40cars.com/ufrp3rn8xaqnlzoek84i.jpg"
+    }
+  ],
+  "reviews": [
+    {
+      "_id": {
+        "$oid": "6814c475002b1b9418466708"
+      },
+      "user": "buyer2@cars.com",
+      "review_text": "Great car overall. Handles well and has plenty of power. The only downside is the infotainment system is a bit complicated to use while driving.",
+      "rating": 3,
+      "created_at": {
+        "$date": "2025-05-02T13:11:17.848Z"
+      }
+    }
+  ],
+  "views": 15,
+  "user_id": "68143a52efa526dc4dbe3df9",
+  "status": "active"
+},
+{
+  "_id": {
+    "$oid": "68143ff2fb8f146f65e383ee"
+  },
+  "vehicle_model": "Honda Pilot Sport 2021",
+  "price": 19002,
+  "mileage": 33,
+  "location": "404 N Plano Rd, Richardson, TX 75081, USA",
+  "car_type": "suv",
+  "listing_age": 18,
+  "coordinates": {
+    "type": "Point",
+    "coordinates": [
+      -96.7000754,
+      32.953244
+    ]
+  },
+  "images": [
+    {
+      "public_id": "ebay_used_cars/seller2@cars.com/osav9gdi4ofeo0cywelo",
+      "url": "https://res.cloudinary.com/dhp2ieqda/image/upload/v1746179658/ebay_used_cars/seller2%40cars.com/osav9gdi4ofeo0cywelo.jpg"
+    }
+  ],
+  "reviews": [],
+  "views": 25,
+  "user_id": "68143a52efa526dc4dbe3df9",
+  "status": "active"
+},
+{
+  "_id": {
+    "$oid": "68143ff2fb8f146f65e383ef"
+  },
+  "vehicle_model": "Nissan Sentra LE 2018",
+  "price": 20875,
+  "mileage": 56,
+  "location": "707 Laredo St, Laredo, TX 78040, USA",
+  "car_type": "suv",
+  "listing_age": 8,
+  "coordinates": {
+    "type": "Point",
+    "coordinates": [
+      -99.4895279,
+      27.507411
+    ]
+  },
+  "images": [
+    {
+      "public_id": "ebay_used_cars/seller2@cars.com/m5u9hpeu0mjlcpecjoen",
+      "url": "https://res.cloudinary.com/dhp2ieqda/image/upload/v1746179588/ebay_used_cars/seller2%40cars.com/m5u9hpeu0mjlcpecjoen.jpg"
+    }
+  ],
+  "reviews": [
+    {
+      "_id": {
+        "$oid": "6814c2fc002b1b9418466701"
+      },
+      "user": "buyer@cars.com",
+      "review_text": "Best car I've ever owned. Low mileage and like-new condition. The 2018 model has all the features you could want.",
+      "rating": 5,
+      "created_at": {
+        "$date": "2025-05-02T13:05:00.265Z"
+      }
+    },
+    {
+      "_id": {
+        "$oid": "6814c441002b1b9418466707"
+      },
+      "user": "buyer2@cars.com",
+      "review_text": "Absolutely love this vehicle! Smooth ride, excellent fuel economy, and all the modern features I could want. The seller was honest and provided complete maintenance records.",
+      "rating": 4,
+      "created_at": {
+        "$date": "2025-05-02T13:10:25.485Z"
+      }
+    }
+  ],
+  "views": 15,
+  "user_id": "68143a52efa526dc4dbe3df9",
+  "status": "active"
+},
+{
+  "_id": {
+    "$oid": "68143ff2fb8f146f65e383f0"
+  },
+  "vehicle_model": "Mercedes GLE LE 2015",
+  "price": 15255,
+  "mileage": 85,
+  "location": "505 N Walnut Creek Dr, Mansfield, TX 76063, USA",
+  "car_type": "coupe",
+  "listing_age": 29,
+  "coordinates": {
+    "type": "Point",
+    "coordinates": [
+      -97.1339462,
+      32.5705856
+    ]
+  },
+  "images": [
+    {
+      "public_id": "ebay_used_cars/seller2@cars.com/boj5dnhr9nxp7wxgv29u",
+      "url": "https://res.cloudinary.com/dhp2ieqda/image/upload/v1746179314/ebay_used_cars/seller2%40cars.com/boj5dnhr9nxp7wxgv29u.jpg"
+    }
+  ],
+  "reviews": [
+    {
+      "_id": {
+        "$oid": "6814c2c9002b1b9418466700"
+      },
+      "user": "buyer@cars.com",
+      "review_text": "Amazing! Powerful engine, comfortable interior, and all the latest tech features. Seller was great to work with.",
+      "rating": 5,
+      "created_at": {
+        "$date": "2025-05-02T13:04:09.041Z"
+      }
+    },
+    {
+      "_id": {
+        "$oid": "6814c3cd002b1b9418466706"
+      },
+      "user": "buyer2@cars.com",
+      "review_text": "Reliable quality. The car is in excellent condition and very fuel efficient. Great commuter car.",
+      "rating": 4,
+      "created_at": {
+        "$date": "2025-05-02T13:08:29.889Z"
+      }
+    }
+  ],
+  "views": 54,
+  "user_id": "68143a52efa526dc4dbe3df9",
+  "status": "active"
+},
+{
+  "_id": {
+    "$oid": "68143ff2fb8f146f65e383f1"
+  },
+  "vehicle_model": "Hyundai Tucson SE 2017",
+  "price": 19584,
+  "mileage": 70,
+  "location": "789 Pine Rd, Poolville, TX 76487, USA",
+  "car_type": "suv",
+  "listing_age": 16,
+  "coordinates": {
+    "type": "Point",
+    "coordinates": [
+      -97.8783344,
+      32.966887
+    ]
+  },
+  "images": [
+    {
+      "public_id": "ebay_used_cars/seller2@cars.com/u7jlw7ahkwq1qd0tsmw2",
+      "url": "https://res.cloudinary.com/dhp2ieqda/image/upload/v1746193138/ebay_used_cars/seller2%40cars.com/u7jlw7ahkwq1qd0tsmw2.webp"
+    },
+    {
+      "public_id": "ebay_used_cars/seller2@cars.com/z1elnn4exlp5jbrhsqcy",
+      "url": "https://res.cloudinary.com/dhp2ieqda/image/upload/v1746193139/ebay_used_cars/seller2%40cars.com/z1elnn4exlp5jbrhsqcy.webp"
+    },
+    {
+      "public_id": "ebay_used_cars/seller2@cars.com/qiyfmpmvpmewutcg1kil",
+      "url": "https://res.cloudinary.com/dhp2ieqda/image/upload/v1746193139/ebay_used_cars/seller2%40cars.com/qiyfmpmvpmewutcg1kil.webp"
+    },
+    {
+      "public_id": "ebay_used_cars/seller2@cars.com/w0bsw7ngdeq6o0vnfrsn",
+      "url": "https://res.cloudinary.com/dhp2ieqda/image/upload/v1746193140/ebay_used_cars/seller2%40cars.com/w0bsw7ngdeq6o0vnfrsn.webp"
+    },
+    {
+      "public_id": "ebay_used_cars/seller2@cars.com/kjx3myt8yq6ouod9irzl",
+      "url": "https://res.cloudinary.com/dhp2ieqda/image/upload/v1746193141/ebay_used_cars/seller2%40cars.com/kjx3myt8yq6ouod9irzl.webp"
+    }
+  ],
+  "reviews": [],
+  "views": 41,
+  "user_id": "68143a52efa526dc4dbe3df9",
+  "status": "active"
+}]

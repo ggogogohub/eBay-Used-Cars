@@ -1,0 +1,188 @@
+<div class="container">
+  <!-- Hero Section -->
+  <div class="row mt-5 pt-5">
+    <div class="col-12 text-center">
+      <h1 class="display-4 fw-bold">
+        <span class="text-primary">{{title}}</span>
+        <div class="float-animation d-inline-block ms-2">
+          <img src="assets/ebay_logo.png" alt="eBay Used Cars Logo" class="hero-logo-img">
+        </div>
+      </h1>
+      <p class="lead text-secondary mb-4">Find the perfect used car for your needs with our advanced marketplace</p>
+      <div class="d-flex justify-content-center gap-3 mb-5">
+        <a [routerLink]="['/listings']" class="btn btn-primary">
+          <i class="bi bi-search me-2"></i>Browse Cars
+        </a>
+        <a [routerLink]="['/auth']" class="btn btn-secondary" *ngIf="!isLoggedIn">
+          <i class="bi bi-person-plus me-2"></i>Join Now
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Features Section -->
+  <div class="row mt-4">
+    <div class="col-md-4 mb-4">
+      <div class="card h-100 glass-card">
+        <div class="card-body text-center p-4">
+          <div class="feature-icon mb-3 text-primary">
+            <i class="bi bi-grid-3x3-gap" style="font-size: 2.5rem;"></i>
+          </div>
+          <h3 class="card-title">Browse Listings</h3>
+          <p class="card-text text-secondary">Explore our extensive collection of quality used cars with advanced filtering options.</p>
+          <a [routerLink]="['/listings']" class="btn btn-primary mt-3">
+            <i class="bi bi-arrow-right me-2"></i>View Listings
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 mb-4">
+      <div class="card h-100 glass-card">
+        <div class="card-body text-center p-4">
+          <div class="feature-icon mb-3 text-accent">
+            <i class="bi bi-cash-coin" style="font-size: 2.5rem;"></i>
+          </div>
+          <h3 class="card-title">Sell Your Car</h3>
+          <p class="card-text text-secondary">List your vehicle and reach thousands of potential buyers in our marketplace.</p>
+          <!-- Show different buttons based on authentication status -->
+          <ng-container *ngIf="isLoggedIn; else notLoggedIn">
+            <ng-container *ngIf="isSeller; else notSeller">
+              <a [routerLink]="['/create-listing']" class="btn btn-accent mt-3">
+                <i class="bi bi-plus-circle me-2"></i>Create Listing
+              </a>
+            </ng-container>
+            <ng-template #notSeller>
+              <div class="alert alert-info py-2 mb-2">
+                <small>You need a seller account to list cars</small>
+              </div>
+              <a [routerLink]="['/profile']" class="btn btn-primary mt-3">
+                <i class="bi bi-person-circle me-2"></i>View Profile
+              </a>
+            </ng-template>
+          </ng-container>
+          <ng-template #notLoggedIn>
+            <a [routerLink]="['/auth']" class="btn btn-accent mt-3">
+              <i class="bi bi-box-arrow-in-right me-2"></i>Get Started
+            </a>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 mb-4">
+      <div class="card h-100 glass-card">
+        <div class="card-body text-center p-4">
+          <div class="feature-icon mb-3 text-secondary">
+            <i class="bi bi-star" style="font-size: 2.5rem;"></i>
+          </div>
+          <h3 class="card-title">Read Reviews</h3>
+          <p class="card-text text-secondary">See what others are saying about their purchases and make informed decisions.</p>
+          <a [routerLink]="['/listings']" class="btn btn-secondary mt-3">
+            <i class="bi bi-chat-quote me-2"></i>View Reviews
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Featured Listings Section -->
+  <div class="row mt-5 featured-section">
+    <div class="col-12">
+      <h2 class="text-center mb-4">
+        <i class="bi bi-award me-2 text-primary"></i>Featured Listings
+      </h2>
+      <p class="text-center text-secondary mb-4">Discover our top picks selected just for you</p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-4 mb-4" *ngFor="let listing of featuredListings">
+      <div class="card h-100" [routerLink]="['/listings', listing._id]" style="cursor: pointer;">
+        <div class="card-header">
+          <h5 class="card-title mb-0 d-flex align-items-center">
+            <i class="bi bi-car-front me-2"></i>
+            {{listing.vehicle_model}}
+          </h5>
+        </div>
+        <!-- Featured Image -->
+        <div class="featured-image-container" *ngIf="listing.images && listing.images.length > 0">
+          <!-- Video preview -->
+          <video *ngIf="isVideo(listing.images[0].url)" [src]="listing.images[0].url" class="card-img-top featured-image" controls>
+            Your browser does not support the video tag.
+          </video>
+          <!-- Image preview -->
+          <img *ngIf="!isVideo(listing.images[0].url)" [src]="listing.images[0].url" class="card-img-top featured-image" alt="{{listing.vehicle_model}}">
+        </div>
+        <!-- No image placeholder -->
+        <div class="featured-image-container" *ngIf="!listing.images || listing.images.length === 0">
+          <div class="no-image-placeholder d-flex align-items-center justify-content-center">
+            <i class="bi bi-image text-primary" style="font-size: 3rem; opacity: 0.7; filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.3));"></i>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="price-tag mb-3">
+            <span class="badge bg-primary p-2 fs-5 shadow-sm">${{listing.price}}</span>
+          </div>
+          <p class="card-text">
+            <span class="d-flex align-items-center mb-2">
+              <i class="bi bi-speedometer2 me-2 text-primary"></i>
+              <span>{{listing.mileage}} miles</span>
+            </span>
+            <span class="d-flex align-items-center mb-2">
+              <i class="bi bi-geo-alt me-2 text-primary"></i>
+              <span>{{listing.location}}</span>
+            </span>
+            <span class="d-flex align-items-center">
+              <i class="bi bi-tag me-2 text-primary"></i>
+              <span>{{listing.car_type}}</span>
+            </span>
+          </p>
+        </div>
+        <div class="card-footer">
+          <div class="d-flex justify-content-between align-items-center">
+            <small class="text-secondary">
+              <i class="bi bi-eye me-1 text-primary"></i> {{listing.views}}
+            </small>
+            <small class="text-secondary">
+              <i class="bi bi-clock me-1 text-primary"></i> {{listing | listingAge}}
+            </small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Footer -->
+<footer class="footer mt-5 w-100">
+  <div class="container">
+    <div class="footer-content">
+      <div class="footer-logo">
+        <img src="assets/ebay_logo.png" alt="eBay Used Cars Logo" class="footer-logo-img">
+        <span>eBay Used Cars</span>
+      </div>
+      <div class="footer-links">
+        <a [routerLink]="['/']">Home</a>
+        <a [routerLink]="['/listings']">Listings</a>
+        <a [routerLink]="['/statistics']">Statistics</a>
+        <!-- Show Login/Register or Logout based on authentication status -->
+        <ng-container *ngIf="!isLoggedIn; else loggedInFooterLinks">
+          <a [routerLink]="['/auth']">Login/Register</a>
+        </ng-container>
+        <ng-template #loggedInFooterLinks>
+          <a [routerLink]="['/profile']">My Profile</a>
+          <a href="javascript:void(0)" (click)="logout()">Logout</a>
+        </ng-template>
+      </div>
+      <div class="footer-social">
+        <a href="https://github.com/ggogogohub" target="_blank" title="GitHub">
+          <i class="bi bi-github"></i>
+        </a>
+      </div>
+      <div class="footer-copyright">
+        &copy; 2025 eBay Used Cars Marketplace. All rights reserved. |
+        <a href="https://github.com/ggogogohub" target="_blank">Developer GitHub</a>
+      </div>
+    </div>
+  </div>
+</footer>

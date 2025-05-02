@@ -1,0 +1,206 @@
+<div class="container">
+  <div class="row mt-5 pt-5">
+    <div class="col-md-8">
+      <h1 class="text-3d">Car Listings</h1>
+      <p class="lead">Browse our selection of quality used cars</p>
+    </div>
+    <div class="col-md-4 text-end d-flex align-items-center justify-content-end" *ngIf="isLoggedIn && isSeller">
+      <a [routerLink]="['/create-listing']" class="btn btn-primary btn-3d ripple">
+        <i class="bi bi-plus-circle me-2"></i>Create New Listing
+      </a>
+    </div>
+  </div>
+
+  <!-- Filters -->
+  <div class="row mb-4">
+    <div class="col-12">
+      <div class="card frosted-glass glow-border">
+        <div class="card-header d-flex justify-content-between align-items-center listing-header-active">
+          <h5 class="mb-0 gradient-text"><i class="bi bi-funnel me-2"></i>Filter Listings</h5>
+          <div class="d-flex align-items-center">
+            <label for="sortOption" class="me-2 mb-0">Sort By:</label>
+            <select id="sortOption" class="form-select form-select-sm" style="width: auto;"
+              [(ngModel)]="sortOption" (change)="onSortChange()">
+              <option *ngFor="let option of sortOptions" [value]="option.value">{{ option.label }}</option>
+            </select>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-4 mb-3">
+              <label for="vehicleModel" class="form-label">Vehicle Model</label>
+              <input type="text" class="form-control" id="vehicleModel" placeholder="e.g. Toyota Camry" [(ngModel)]="filters.vehicle_model"
+                [ngClass]="{'border-primary': filters.vehicle_model}" (input)="onFilterChange()">
+            </div>
+            <div class="col-md-4 mb-3">
+              <label for="price" class="form-label">Price</label>
+              <input type="number" class="form-control" id="price" placeholder="e.g. 15000" [(ngModel)]="filters.price"
+                [ngClass]="{'border-primary': filters.price}" (input)="onFilterChange()">
+            </div>
+            <div class="col-md-4 mb-3">
+              <label for="mileage" class="form-label">Mileage</label>
+              <input type="number" class="form-control" id="mileage" placeholder="e.g. 50000" [(ngModel)]="filters.mileage"
+                [ngClass]="{'border-primary': filters.mileage}" (input)="onFilterChange()">
+            </div>
+            <div class="col-md-4 mb-3">
+              <label for="location" class="form-label">Location</label>
+              <input type="text" class="form-control" id="location" placeholder="e.g. New York" [(ngModel)]="filters.location"
+                [ngClass]="{'border-primary': filters.location}" (input)="onFilterChange()">
+            </div>
+            <div class="col-md-4 mb-3">
+              <label for="carType" class="form-label">Car Type</label>
+              <input type="text" class="form-control" id="carType" placeholder="e.g. Sedan" [(ngModel)]="filters.car_type"
+                [ngClass]="{'border-primary': filters.car_type}" (input)="onFilterChange()">
+            </div>
+            <div class="col-md-4 d-flex align-items-end mb-3">
+              <button class="btn btn-primary me-2 btn-3d ripple" (click)="applyFilters()">
+                <i class="bi bi-funnel me-1"></i>Apply Filters
+                <span class="badge bg-light text-primary ms-1" *ngIf="activeFilterCount > 0">{{activeFilterCount}}</span>
+              </button>
+              <button class="btn btn-secondary ripple" (click)="clearFilters()" [disabled]="activeFilterCount === 0">
+                <i class="bi bi-x-circle me-1"></i>Clear
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Loading Indicator -->
+  <div class="row mb-4" *ngIf="isLoading">
+    <div class="col-12 text-center">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+      <p class="mt-2">Searching listings...</p>
+    </div>
+  </div>
+
+  <!-- No Results Message -->
+  <div class="row mb-4" *ngIf="!isLoading && listings.length === 0">
+    <div class="col-12">
+      <div class="alert alert-info">
+        <i class="bi bi-info-circle me-2"></i>
+        No listings found matching your criteria. Try adjusting your filters.
+      </div>
+    </div>
+  </div>
+
+  <!-- Listings -->
+  <div class="row" *ngIf="!isLoading && listings.length > 0">
+    <div class="col-md-4 mb-4" *ngFor="let listing of listings">
+      <div class="card h-100 floating-card layered-card" [routerLink]="['/listings', listing._id]" style="cursor: pointer;">
+        <div class="card-header d-flex justify-content-between align-items-center"
+             [ngClass]="{
+               'listing-header-active': listing.status === 'active' || !listing.status,
+               'listing-header-sold': listing.status === 'sold',
+               'listing-header-reported': listing.status === 'reported'
+             }">
+          <h5 class="card-title mb-0 text-3d">{{listing.vehicle_model}}</h5>
+          <span *ngIf="listing.status && listing.status !== 'active'" class="badge float-animation"
+                [ngClass]="{
+                  'bg-light text-success': listing.status === 'sold',
+                  'bg-light text-danger': listing.status === 'reported'
+                }">
+            <i *ngIf="listing.status === 'sold'" class="bi bi-check-circle-fill me-1"></i>
+            <i *ngIf="listing.status === 'reported'" class="bi bi-flag-fill me-1"></i>
+            {{listing.status | titlecase}}
+          </span>
+        </div>
+        <!-- Card Image or Video -->
+        <div class="card-img-top-container shine" *ngIf="listing.images && listing.images.length > 0" [ngClass]="{'sold-overlay-container': listing.status === 'sold'}">
+          <!-- Video preview -->
+          <video *ngIf="isVideo(listing.images[0].url)" [src]="listing.images[0].url" class="card-img-top listing-thumbnail" controls>
+            Your browser does not support the video tag.
+          </video>
+          <!-- Image preview -->
+          <img *ngIf="!isVideo(listing.images[0].url)" [src]="listing.images[0].url" class="card-img-top listing-thumbnail" alt="Vehicle Image">
+        </div>
+        <div class="card-img-top-container" *ngIf="!listing.images || listing.images.length === 0">
+          <div class="no-image-placeholder">
+            <i class="bi bi-image"></i>
+            <span>No Image</span>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="price-tag">${{listing.price}}</div>
+          <div class="card-text">
+            <div class="listing-detail"><i class="bi bi-speedometer2 me-2"></i> <strong>Mileage:</strong> {{listing.mileage}} miles</div>
+            <div class="listing-detail"><i class="bi bi-geo-alt me-2"></i> <strong>Location:</strong> {{listing.location}}</div>
+            <div class="listing-detail"><i class="bi bi-car-front me-2"></i> <strong>Type:</strong> {{listing.car_type}}</div>
+          </div>
+        </div>
+        <div class="card-footer">
+          <div class="d-flex justify-content-between">
+            <small class="text-muted"><i class="bi bi-eye me-1"></i> {{listing.views}} views</small>
+            <small class="text-muted"><i class="bi bi-clock-history me-1"></i> {{listing | listingAge}}</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pagination -->
+  <div class="row mt-4 mb-5">
+    <div class="col-12">
+      <div class="pagination-controls frosted-glass p-3 rounded">
+        <!-- Previous Button -->
+        <button class="btn btn-primary btn-3d ripple" (click)="previousPage()" [disabled]="page === 1">
+          <i class="bi bi-arrow-left me-2"></i>Previous
+        </button>
+
+        <!-- Page Numbers -->
+        <div class="page-numbers">
+          <!-- First Page -->
+          <button *ngIf="page > 3" class="btn btn-page" [class.active]="page === 1" (click)="goToPage(1)">1</button>
+
+          <!-- Ellipsis for skipped pages at the beginning -->
+          <span *ngIf="page > 4" class="page-ellipsis">...</span>
+
+          <!-- Page before current -->
+          <button *ngIf="page > 1" class="btn btn-page" (click)="goToPage(page - 1)">{{page - 1}}</button>
+
+          <!-- Current Page -->
+          <button class="btn btn-page active">{{page}}</button>
+
+          <!-- Page after current -->
+          <button *ngIf="page < totalPages" class="btn btn-page" (click)="goToPage(page + 1)">{{page + 1}}</button>
+
+          <!-- Ellipsis for skipped pages at the end -->
+          <span *ngIf="page < totalPages - 3" class="page-ellipsis">...</span>
+
+          <!-- Last Page -->
+          <button *ngIf="page < totalPages - 2" class="btn btn-page" [class.active]="page === totalPages" (click)="goToPage(totalPages)">{{totalPages}}</button>
+        </div>
+
+        <!-- Go to Page Input -->
+        <div class="go-to-page">
+          <div class="input-group">
+            <input
+              type="number"
+              class="form-control"
+              placeholder="Page"
+              [(ngModel)]="goToPageInput"
+              min="1"
+              [max]="totalPages"
+              (keyup.enter)="goToPage(goToPageInput)"
+            >
+            <button
+              class="btn btn-outline-primary"
+              (click)="goToPage(goToPageInput)"
+              [disabled]="!goToPageInput || goToPageInput < 1 || goToPageInput > totalPages"
+            >
+              Go
+            </button>
+          </div>
+        </div>
+
+        <!-- Next Button -->
+        <button class="btn btn-primary btn-3d ripple" (click)="nextPage()" [disabled]="page === totalPages">
+          Next<i class="bi bi-arrow-right ms-2"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

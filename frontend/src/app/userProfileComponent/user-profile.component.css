@@ -1,0 +1,420 @@
+/* Profile Container */
+.profile-container {
+  padding: 2rem;
+  min-height: 100vh;
+  background-color: #0f172a;
+  color: #c6c6c6;
+  padding-top: 6rem; /* Add extra padding at the top to account for the fixed navbar */
+}
+
+.profile-header {
+  margin-bottom: 2rem;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.profile-title {
+  color: #4a6bdc;
+  font-weight: 800;
+  font-size: 2.5rem;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.profile-content {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+@media (max-width: 992px) {
+  .profile-content {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Card Styles */
+.dark-card {
+  border-radius: 8px;
+  border: 1px solid #284475;
+  background-color: #1a253b;
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+}
+
+.card-header {
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid #284475;
+  font-weight: 600;
+  background-color: #284475;
+  color: #ffffff;
+}
+
+.card-header h4 {
+  display: flex;
+  align-items: center;
+  font-size: 1.25rem;
+  color: #ffffff;
+  text-transform: uppercase;
+}
+
+.card-body {
+  padding: 1.5rem;
+  background-color: #1a253b;
+  color: #c6c6c6;
+}
+
+.card-footer {
+  padding: 1rem 1.5rem;
+  border-top: 1px solid #284475;
+  display: flex;
+  gap: 0.5rem;
+}
+
+/* Info Row Styles */
+.info-row {
+  display: flex;
+  margin-bottom: 1rem;
+  padding: 0.75rem;
+  background-color: #303030;
+  border-radius: 4px;
+  border-left: 3px solid #284475;
+}
+
+.info-label {
+  font-weight: 600;
+  width: 120px;
+  color: #c6c6c6;
+}
+
+.info-value {
+  font-weight: 500;
+  flex: 1;
+  color: #ffffff;
+}
+
+/* Button Styles */
+.btn {
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  border-radius: 4px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  border: none;
+  font-size: 0.8rem;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+
+.btn-change-password {
+  background-color: #1e40af;
+  color: white;
+}
+
+.btn-change-password:hover {
+  background-color: #2563eb;
+}
+
+.btn-logout {
+  background-color: #284475;
+  color: white;
+}
+
+.btn-logout:hover {
+  background-color: #3a5a94;
+}
+
+.btn-delete {
+  background-color: #581919;
+  color: white;
+}
+
+.btn-delete:hover {
+  background-color: #7a2828;
+}
+
+.btn-add {
+  background-color: #0e7c43;
+  color: white;
+  font-size: 0.7rem;
+}
+
+.btn-add:hover {
+  background-color: #0e9a52;
+}
+
+.btn-view {
+  background-color: #284475;
+  color: white;
+  font-size: 0.7rem;
+}
+
+.btn-view:hover {
+  background-color: #3a5a94;
+}
+
+.btn-edit {
+  background-color: #6c757d;
+  color: white;
+  font-size: 0.7rem;
+}
+
+.btn-edit:hover {
+  background-color: #5a6268;
+}
+
+.btn-mark-sold {
+  background-color: #0e7c43;
+  color: white;
+  font-size: 0.7rem;
+}
+
+.btn-mark-sold:hover {
+  background-color: #0e9a52;
+}
+
+/* Listings Styles */
+.listings-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.listing-item {
+  background-color: #ffffff;
+  border-radius: 4px;
+  padding: 1rem;
+  color: #333333;
+}
+
+.listing-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.listing-title {
+  font-weight: 600;
+  margin: 0;
+  color: #333333;
+}
+
+.listing-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.listing-price {
+  font-weight: 700;
+  color: #333333;
+}
+
+.listing-details {
+  margin-bottom: 0.5rem;
+  color: #555555;
+}
+
+.listing-stats {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  color: #777777;
+  margin-bottom: 1rem;
+}
+
+.listing-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+/* Status Badge Styles */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 70px;
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  padding: 0.35em 0.65em;
+  border-radius: 4px;
+}
+
+.status-badge.active {
+  background-color: #284475;
+  color: white;
+}
+
+.status-badge.sold {
+  background-color: #0e7c43;
+  color: white;
+}
+
+.status-badge.reported {
+  background-color: #581919;
+  color: white;
+}
+
+/* Empty State */
+.empty-listings {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  color: #c6c6c6;
+  text-align: center;
+}
+
+.empty-icon {
+  font-size: 3rem;
+  color: #284475;
+}
+
+/* Loading Container */
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  color: #c6c6c6;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.error-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem 0;
+}
+
+/* Modal Styles */
+.custom-modal .modal-content {
+  border: none;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+}
+
+.dark-modal {
+  background-color: #1a253b;
+  border-radius: 8px;
+}
+
+.modal-header {
+  border-bottom: 1px solid #284475;
+  padding: 1rem;
+}
+
+.modal-header-danger {
+  background-color: #581919;
+  color: white;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.modal-header-primary {
+  background-color: #284475;
+  color: white;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.modal-title {
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  text-transform: uppercase;
+  font-size: 1.1rem;
+}
+
+.modal-body {
+  padding: 1.5rem;
+  background-color: #1a253b;
+  color: #c6c6c6;
+}
+
+.modal-text {
+  color: #ffffff;
+}
+
+.modal-footer {
+  border-top: 1px solid #284475;
+  padding: 1rem;
+  background-color: #1a253b;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
+.modal-icon-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.modal-icon {
+  font-size: 3rem;
+  color: #dc3545;
+}
+
+.detail-row {
+  display: flex;
+  margin-bottom: 0.75rem;
+  padding: 0.75rem;
+  background-color: #303030;
+  border-radius: 4px;
+  border-left: 3px solid #284475;
+}
+
+.detail-label {
+  font-weight: 600;
+  width: 100px;
+  color: #c6c6c6;
+}
+
+.detail-value {
+  font-weight: 500;
+  flex: 1;
+  color: #ffffff;
+}
+
+.warning-text {
+  color: #dc3545;
+  font-weight: 600;
+  margin-top: 1.5rem;
+  text-align: center;
+}
+
+.btn-cancel {
+  background-color: #303030;
+  color: white;
+  border: 1px solid #444;
+}
+
+.btn-cancel:hover {
+  background-color: #444;
+}
+
+.btn-delete-confirm {
+  background-color: #581919;
+  color: white;
+}
+
+.btn-delete-confirm:hover {
+  background-color: #7a2828;
+}
+
+.btn-update {
+  background-color: #284475;
+  color: white;
+}
+
+.btn-update:hover {
+  background-color: #3a5a94;
+}

@@ -1,0 +1,148 @@
+.edit-listing-container {
+  padding: 2rem;
+  min-height: 100vh;
+  background-color: #0f172a;
+  color: #c6c6c6;
+  padding-top: 6rem; /* Add extra padding at the top to account for the fixed navbar */
+}
+
+.edit-listing-header {
+  margin-bottom: 2rem;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.edit-listing-title {
+  color: #4a6bdc;
+  font-weight: 800;
+  font-size: 2.5rem;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.edit-form-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.dark-card {
+  background-color: #1a253b;
+  border: 1px solid #284475;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+
+.card-header {
+  background-color: #284475;
+  color: #c6c6c6;
+  padding: 1rem 1.5rem;
+  border-bottom: none;
+}
+
+.card-body {
+  padding: 2rem;
+}
+
+.form-control, .form-select {
+  background-color: #0f172a;
+  border: 1px solid #284475;
+  color: #c6c6c6;
+  padding: 0.75rem 1rem;
+}
+
+.form-control:focus, .form-select:focus {
+  background-color: #0f172a;
+  border-color: #4a6bdc;
+  color: #c6c6c6;
+  box-shadow: 0 0 0 0.25rem rgba(74, 107, 220, 0.25);
+}
+
+.form-control::placeholder {
+  color: #6c757d;
+}
+
+.form-text {
+  color: #8b9cb3;
+}
+
+.map-container {
+  height: 300px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid #284475;
+}
+
+.btn-primary {
+  background-color: #4a6bdc;
+  border-color: #4a6bdc;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #3a5bc9;
+  border-color: #3a5bc9;
+}
+
+.btn-secondary {
+  background-color: #334155;
+  border-color: #334155;
+  color: #c6c6c6;
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+  background-color: #475569;
+  border-color: #475569;
+}
+
+.btn-outline-secondary {
+  border-color: #334155;
+  color: #c6c6c6;
+  transition: all 0.3s ease;
+}
+
+.btn-outline-secondary:hover {
+  background-color: #334155;
+  color: #c6c6c6;
+}
+
+.loading-container, .error-container, .success-container {
+  max-width: 800px;
+  margin: 2rem auto;
+  text-align: center;
+}
+
+.alert-danger {
+  background-color: #581919;
+  border-color: #6e2222;
+  color: #f8d7da;
+}
+
+.alert-success {
+  background-color: #1a472a;
+  border-color: #215732;
+  color: #d1e7dd;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .edit-listing-container {
+    padding: 1rem;
+    padding-top: 5rem;
+  }
+  
+  .card-body {
+    padding: 1.5rem;
+  }
+  
+  .edit-listing-title {
+    font-size: 2rem;
+  }
+}

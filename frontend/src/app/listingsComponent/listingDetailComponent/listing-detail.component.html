@@ -1,0 +1,473 @@
+<div class="container" *ngIf="listing">
+  <div class="row mt-5 pt-5">
+    <div class="col-12">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a [routerLink]="['/']">Home</a></li>
+          <li class="breadcrumb-item"><a [routerLink]="['/listings']">Listings</a></li>
+          <li class="breadcrumb-item active">{{listing.vehicle_model}}</li>
+        </ol>
+      </nav>
+    </div>
+  </div>
+
+  <!-- Success Message -->
+  <div class="row mb-3" *ngIf="actionSuccess">
+    <div class="col-12">
+      <div class="alert alert-success">
+        <i class="bi bi-check-circle-fill me-2"></i> {{ actionSuccess }}
+      </div>
+    </div>
+  </div>
+
+  <!-- Error Message -->
+  <div class="row mb-3" *ngIf="actionError">
+    <div class="col-12">
+      <div class="alert alert-danger">
+        <i class="bi bi-exclamation-triangle-fill me-2"></i> {{ actionError }}
+      </div>
+    </div>
+  </div>
+
+  <!-- Listing Details -->
+  <div class="row">
+    <div class="col-md-8">
+      <div class="card mb-4 frosted-glass glow-border">
+        <div class="card-header d-flex justify-content-between align-items-center"
+             [ngClass]="{
+               'listing-header-active': listing.status === 'active',
+               'listing-header-sold': listing.status === 'sold',
+               'listing-header-reported': listing.status === 'reported'
+             }">
+          <div>
+            <h2 class="mb-0 text-3d">{{listing.vehicle_model}}</h2>
+          </div>
+          <div class="d-flex align-items-center gap-2">
+            <!-- Owner Action Button - Prominently displayed in header for active listings -->
+            <button *ngIf="isLoggedIn && isOwner && listing.status === 'active'"
+                    class="btn btn-warning btn-sm btn-3d ripple"
+                    (click)="openSoldModal()">
+              <i class="bi bi-check-circle me-1"></i> Mark as Sold
+            </button>
+
+            <!-- Status Badge -->
+            <span *ngIf="listing.status !== 'active'" class="badge float-animation"
+                  [ngClass]="{
+                    'bg-light text-success': listing.status === 'sold',
+                    'bg-light text-danger': listing.status === 'reported'
+                  }">
+              <i *ngIf="listing.status === 'sold'" class="bi bi-check-circle-fill me-1"></i>
+              <i *ngIf="listing.status === 'reported'" class="bi bi-flag-fill me-1"></i>
+              {{listing.status | titlecase}}
+            </span>
+          </div>
+        </div>
+        <div class="card-body">
+          <!-- Vehicle Images -->
+          <div class="row mb-4" *ngIf="listing.images && listing.images.length > 0">
+            <div class="col-12">
+              <div id="carouselImages" class="carousel slide" data-bs-ride="carousel" [ngClass]="{'sold-overlay-container': listing.status === 'sold'}">
+                <div class="carousel-inner">
+                  <div class="carousel-item" *ngFor="let media of listing.images; let i = index" [class.active]="i === 0">
+                    <!-- Check if it's a video (URL contains video) -->
+                    <video *ngIf="isVideo(media.url)" [src]="media.url" class="d-block w-100 listing-image" controls>
+                      Your browser does not support the video tag.
+                    </video>
+                    <!-- Otherwise display as image -->
+                    <img *ngIf="!isVideo(media.url)" [src]="media.url" class="d-block w-100 listing-image" alt="Vehicle Image">
+                  </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselImages" data-bs-slide="prev" *ngIf="listing.images.length > 1">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselImages" data-bs-slide="next" *ngIf="listing.images.length > 1">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Next</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- No Images Message -->
+          <div class="row mb-4" *ngIf="!listing.images || listing.images.length === 0">
+            <div class="col-12">
+              <div class="alert alert-info">
+                <i class="bi bi-image me-2"></i> No images available for this listing
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="listing-detail">
+                <i class="bi bi-currency-dollar me-2"></i> <strong>Price:</strong> ${{listing.price}}
+              </div>
+              <div class="listing-detail">
+                <i class="bi bi-speedometer2 me-2"></i> <strong>Mileage:</strong> {{listing.mileage}} miles
+              </div>
+              <div class="listing-detail">
+                <i class="bi bi-geo-alt me-2"></i> <strong>Location:</strong> {{listing.location}}
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="listing-detail">
+                <i class="bi bi-car-front me-2"></i> <strong>Car Type:</strong> {{listing.car_type}}
+              </div>
+              <div class="listing-detail">
+                <i class="bi bi-clock-history me-2"></i> <strong>Listing Age:</strong> {{listing | listingAge}}
+              </div>
+              <div class="listing-detail">
+                <i class="bi bi-eye me-2"></i> <strong>Views:</strong> {{listing.views}}
+              </div>
+
+              <!-- Owner Action - Prominent Mark as Sold button for active listings -->
+              <div *ngIf="isLoggedIn && isOwner && listing.status === 'active'" class="mt-3">
+                <button class="btn btn-warning btn-lg w-100 btn-3d ripple" (click)="openSoldModal()">
+                  <i class="bi bi-check-circle me-1"></i> Mark as Sold
+                </button>
+              </div>
+
+              <!-- Sold Status Message -->
+              <div *ngIf="isOwner && listing.status === 'sold'" class="alert alert-success mt-3">
+                <i class="bi bi-check-circle-fill me-1"></i> This listing has been marked as sold.
+              </div>
+            </div>
+          </div>
+
+          <!-- Vehicle Location Map -->
+          <div class="row mt-4">
+            <div class="col-12">
+              <h4 class="mb-3">Vehicle Location</h4>
+              <app-map *ngIf="listing.mapCoordinates" [coordinates]="listing.mapCoordinates" [locationName]="listing.locationName" height="300px"></app-map>
+              <div *ngIf="!listing.mapCoordinates" class="alert alert-info">
+                <i class="bi bi-geo-alt me-2"></i> Location map not available for this listing
+              </div>
+            </div>
+          </div>
+
+          <!-- Listing Actions -->
+          <div class="mt-3 d-flex gap-2" *ngIf="isLoggedIn">
+            <!-- Owner Actions for Active Listings -->
+            <div *ngIf="isOwner && listing.status === 'active'" class="d-flex gap-2">
+              <a [routerLink]="['/edit-listing', listing._id]" class="btn btn-primary btn-3d ripple">
+                <i class="bi bi-pencil-square me-1"></i> Edit Listing
+              </a>
+              <button class="btn btn-warning btn-3d ripple" (click)="openSoldModal()">
+                <i class="bi bi-check-circle me-1"></i> Mark as Sold
+              </button>
+            </div>
+
+            <!-- Owner Actions for Sold Listings -->
+            <div *ngIf="isOwner && listing.status === 'sold'" class="alert alert-success">
+              <i class="bi bi-check-circle-fill me-1"></i> This listing has been marked as sold.
+            </div>
+
+            <!-- Non-owner Actions for Active Listings -->
+            <button *ngIf="!isOwner && listing.status === 'active'" class="btn btn-danger btn-3d ripple" (click)="openReportModal()">
+              <i class="bi bi-flag me-1"></i> Report Listing
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card mb-4 frosted-glass glow-border">
+        <div class="card-header listing-header-active">
+          <h4 class="mb-0 text-3d">Contact Seller</h4>
+        </div>
+        <div class="card-body">
+          <p>Interested in this vehicle? Contact the seller for more information.</p>
+          <button class="btn btn-primary btn-3d ripple w-100 mb-3" [disabled]="!isLoggedIn" (click)="isLoggedIn && openFeatureModal('Contact Seller')">
+            <i class="bi bi-chat-dots me-2"></i>Contact Seller
+          </button>
+
+          <button class="btn btn-success btn-3d ripple w-100" (click)="openFeatureModal('Buy Now')">
+            <i class="bi bi-cart-check me-2"></i>Buy Now
+          </button>
+
+          <p class="mt-2 text-center" *ngIf="!isLoggedIn">
+            <a [routerLink]="['/auth']" class="gradient-text">Login</a> to contact the seller
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Reviews Section -->
+  <div class="row mt-5 mb-4">
+    <div class="col-12">
+      <h2 class="text-3d gradient-heading">Reviews ({{reviews.length}})</h2>
+      <div class="heading-underline"></div>
+    </div>
+  </div>
+
+  <!-- Add Review Form -->
+  <div class="row mb-5" *ngIf="isLoggedIn">
+    <div class="col-12">
+      <div class="card frosted-glass glow-border">
+        <div class="card-header listing-header-active">
+          <h4 class="mb-0 text-3d">Add Your Review</h4>
+        </div>
+        <div class="card-body">
+          <form (ngSubmit)="submitReview()">
+            <div class="mb-4">
+              <label for="rating" class="form-label fw-bold">Rating</label>
+              <div class="rating-select-wrapper">
+                <select class="form-select" id="rating" [(ngModel)]="newReview.rating" name="rating">
+                  <option value="5">5 Stars - Excellent</option>
+                  <option value="4">4 Stars - Very Good</option>
+                  <option value="3">3 Stars - Good</option>
+                  <option value="2">2 Stars - Fair</option>
+                  <option value="1">1 Star - Poor</option>
+                </select>
+                <div class="rating-preview ms-3">
+                  <span class="text-warning">
+                    <span *ngFor="let star of generateRatingArray(newReview.rating)">★</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="mb-4">
+              <label for="reviewText" class="form-label fw-bold">Your Review</label>
+              <textarea class="form-control" id="reviewText" rows="4" [(ngModel)]="newReview.review_text" name="review_text" required
+                placeholder="Share your experience with this listing..."></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary btn-3d ripple btn-lg" [disabled]="!newReview.review_text">
+              <i class="bi bi-send me-2"></i>Submit Review
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Reviews List -->
+  <div class="row">
+    <div class="col-12">
+      <div *ngIf="reviews.length === 0" class="alert alert-info">
+        <i class="bi bi-chat-square-text me-2"></i> No reviews yet. Be the first to review this listing!
+      </div>
+
+      <div class="card mb-4 frosted-glass glow-border" *ngFor="let review of reviews">
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <div>
+            <strong class="review-username">{{review.user}}</strong>
+            <span class="ms-2 text-warning">
+              <span *ngFor="let star of generateRatingArray(review.rating)">★</span>
+            </span>
+          </div>
+          <div class="d-flex align-items-center justify-content-end gap-3">
+            <div class="review-date">{{formatDateTime(review.created_at)}}</div>
+
+            <!-- Direct Action Buttons -->
+            <div class="action-buttons" *ngIf="isLoggedIn && (userProfile?.username === review.user || isAdmin)">
+              <button *ngIf="userProfile?.username === review.user"
+                      class="btn btn-sm btn-outline-primary btn-3d me-2"
+                      (click)="editReview(review)"
+                      title="Edit Review">
+                <i class="bi bi-pencil"></i>
+              </button>
+              <button *ngIf="isAdmin"
+                      class="btn btn-sm btn-outline-danger btn-3d"
+                      (click)="deleteReview(review)"
+                      title="Delete Review">
+                <i class="bi bi-trash"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="card-text">{{review.review_text}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Loading State -->
+<div class="container" *ngIf="!listing">
+  <div class="row mt-5 pt-5">
+    <div class="col-12 text-center">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+      <p class="mt-2">Loading listing details...</p>
+    </div>
+  </div>
+</div>
+
+<!-- Report Listing Modal -->
+<div class="modal" [class.show]="showReportModal" [style.display]="showReportModal ? 'block' : 'none'">
+  <div class="modal-dialog">
+    <div class="modal-content frosted-glass">
+      <div class="modal-header listing-header-reported">
+        <h5 class="modal-title">Report Listing</h5>
+        <button type="button" class="btn-close" (click)="closeReportModal()"></button>
+      </div>
+      <div class="modal-body">
+        <div class="text-center mb-3">
+          <i class="bi bi-flag" style="font-size: 2.5rem; color: var(--danger-color);"></i>
+        </div>
+        <div class="confirmation-message">
+          <p class="confirmation-text">Are you sure you want to report this listing? This action will flag the listing for review by our administrators.</p>
+          <p class="confirmation-text">Reported listings will be reviewed for violations of our terms of service.</p>
+        </div>
+
+        <div *ngIf="actionError" class="alert alert-danger mt-3">
+          {{ actionError }}
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-3d ripple" (click)="closeReportModal()">
+          <i class="bi bi-x-circle me-2"></i>Cancel
+        </button>
+        <button type="button" class="btn btn-danger btn-3d ripple" (click)="reportListing()" [disabled]="actionInProgress">
+          <span *ngIf="actionInProgress" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+          <i class="bi bi-flag me-2"></i>Report Listing
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Mark as Sold Modal -->
+<div class="modal" [class.show]="showSoldModal" [style.display]="showSoldModal ? 'block' : 'none'">
+  <div class="modal-dialog">
+    <div class="modal-content frosted-glass">
+      <div class="modal-header listing-header-sold">
+        <h5 class="modal-title">Mark as Sold</h5>
+        <button type="button" class="btn-close" (click)="closeSoldModal()"></button>
+      </div>
+      <div class="modal-body">
+        <div class="text-center mb-3">
+          <i class="bi bi-check-circle" style="font-size: 2.5rem; color: var(--success-color);"></i>
+        </div>
+        <div class="confirmation-message sold-confirmation">
+          <p class="confirmation-text">Are you sure you want to mark this listing as sold? This action cannot be undone.</p>
+          <p class="confirmation-text">Once marked as sold, the listing will no longer appear in active searches.</p>
+        </div>
+
+        <div *ngIf="actionError" class="alert alert-danger mt-3">
+          {{ actionError }}
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-3d ripple" (click)="closeSoldModal()">
+          <i class="bi bi-x-circle me-2"></i>Cancel
+        </button>
+        <button type="button" class="btn btn-success btn-3d ripple" (click)="markAsSold()" [disabled]="actionInProgress">
+          <span *ngIf="actionInProgress" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+          <i class="bi bi-check-circle me-2"></i>Mark as Sold
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Edit Review Modal -->
+<div class="modal" [class.show]="showEditReviewModal" [style.display]="showEditReviewModal ? 'block' : 'none'">
+  <div class="modal-dialog">
+    <div class="modal-content frosted-glass">
+      <div class="modal-header listing-header-active">
+        <h5 class="modal-title">Edit Review</h5>
+        <button type="button" class="btn-close" (click)="closeEditReviewModal()"></button>
+      </div>
+      <div class="modal-body">
+        <div class="text-center mb-3">
+          <i class="bi bi-pencil-square" style="font-size: 2.5rem; color: var(--primary-light);"></i>
+        </div>
+        <form>
+          <div class="mb-3">
+            <label for="editRating" class="form-label">Rating</label>
+            <select class="form-select" id="editRating" [(ngModel)]="editingReview.rating" name="rating">
+              <option value="5">5 Stars - Excellent</option>
+              <option value="4">4 Stars - Very Good</option>
+              <option value="3">3 Stars - Good</option>
+              <option value="2">2 Stars - Fair</option>
+              <option value="1">1 Star - Poor</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="editReviewText" class="form-label">Your Review</label>
+            <textarea class="form-control" id="editReviewText" rows="3" [(ngModel)]="editingReview.review_text" name="review_text" required></textarea>
+          </div>
+        </form>
+
+        <div *ngIf="actionError" class="alert alert-danger mt-3">
+          {{ actionError }}
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-3d ripple" (click)="closeEditReviewModal()">
+          <i class="bi bi-x-circle me-2"></i>Cancel
+        </button>
+        <button type="button" class="btn btn-primary btn-3d ripple" (click)="updateReview()" [disabled]="actionInProgress || !editingReview.review_text">
+          <span *ngIf="actionInProgress" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+          <i class="bi bi-save me-2"></i>Save Changes
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Delete Review Modal -->
+<div class="modal" [class.show]="showDeleteReviewModal" [style.display]="showDeleteReviewModal ? 'block' : 'none'">
+  <div class="modal-dialog">
+    <div class="modal-content frosted-glass">
+      <div class="modal-header listing-header-reported">
+        <h5 class="modal-title">Delete Review</h5>
+        <button type="button" class="btn-close" (click)="closeDeleteReviewModal()"></button>
+      </div>
+      <div class="modal-body">
+        <div class="text-center mb-3">
+          <i class="bi bi-trash" style="font-size: 2.5rem; color: var(--danger-color);"></i>
+        </div>
+        <div class="confirmation-message">
+          <p class="confirmation-text">Are you sure you want to delete this review? This action cannot be undone.</p>
+        </div>
+
+        <div *ngIf="actionError" class="alert alert-danger mt-3">
+          {{ actionError }}
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-3d ripple" (click)="closeDeleteReviewModal()">
+          <i class="bi bi-x-circle me-2"></i>Cancel
+        </button>
+        <button type="button" class="btn btn-danger btn-3d ripple" (click)="confirmDeleteReview()" [disabled]="actionInProgress">
+          <span *ngIf="actionInProgress" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+          <i class="bi bi-trash me-2"></i>Delete Review
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Feature Coming Soon Modal -->
+<div class="modal" [class.show]="showFeatureModal" [style.display]="showFeatureModal ? 'block' : 'none'">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content frosted-glass">
+      <div class="modal-header listing-header-active">
+        <h5 class="modal-title text-3d">Feature Coming Soon</h5>
+        <button type="button" class="btn-close" (click)="closeFeatureModal()"></button>
+      </div>
+      <div class="modal-body">
+        <div class="text-center mb-4">
+          <i class="bi bi-stars feature-icon"></i>
+        </div>
+        <h4 class="text-center feature-message mb-3">{{ featureModalMessage }}</h4>
+        <p class="text-center feature-description">We're working hard to bring you this feature soon. Thank you for your patience!</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary btn-3d ripple" (click)="closeFeatureModal()">
+          <i class="bi bi-check-circle me-2"></i>Got it!
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Backdrop -->
+<div class="modal-backdrop fade show" *ngIf="showReportModal || showSoldModal || showEditReviewModal || showDeleteReviewModal || showFeatureModal"></div>

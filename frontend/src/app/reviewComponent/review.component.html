@@ -1,0 +1,45 @@
+<div class="card mb-3">
+  <div class="card-header bg-light d-flex justify-content-between align-items-center">
+    <div>
+      <strong>{{review.user}}</strong>
+      <span class="ms-2 text-warning">
+        <span *ngFor="let star of generateRatingArray(review.rating)">★</span>
+      </span>
+    </div>
+    <div class="d-flex align-items-center">
+      <small class="text-muted me-3">{{formatDate(review.created_at)}}</small>
+      <button *ngIf="editable && !isEditing" class="btn btn-sm btn-outline-primary" (click)="startEditing()">
+        Edit
+      </button>
+    </div>
+  </div>
+  
+  <!-- View Mode -->
+  <div class="card-body" *ngIf="!isEditing">
+    <p class="card-text">{{review.review_text}}</p>
+  </div>
+  
+  <!-- Edit Mode -->
+  <div class="card-body" *ngIf="isEditing">
+    <form (ngSubmit)="saveReview()">
+      <div class="mb-3">
+        <label for="editRating" class="form-label">Rating</label>
+        <select class="form-select" id="editRating" [(ngModel)]="editedReview.rating" name="rating">
+          <option value="5">5 Stars - Excellent</option>
+          <option value="4">4 Stars - Very Good</option>
+          <option value="3">3 Stars - Good</option>
+          <option value="2">2 Stars - Fair</option>
+          <option value="1">1 Star - Poor</option>
+        </select>
+      </div>
+      <div class="mb-3">
+        <label for="editReviewText" class="form-label">Your Review</label>
+        <textarea class="form-control" id="editReviewText" rows="3" [(ngModel)]="editedReview.review_text" name="review_text" required></textarea>
+      </div>
+      <div class="d-flex justify-content-end">
+        <button type="button" class="btn btn-secondary me-2" (click)="cancelEditing()">Cancel</button>
+        <button type="submit" class="btn btn-primary" [disabled]="!editedReview.review_text">Save</button>
+      </div>
+    </form>
+  </div>
+</div>

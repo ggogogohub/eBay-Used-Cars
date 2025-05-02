@@ -1,0 +1,94 @@
+.map-container {
+  width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  position: relative;
+  z-index: 1;
+  border: 1px solid #284475;
+  overflow: hidden;
+}
+
+.map-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 300px;
+  background-color: #303030;
+  border-radius: 8px;
+  border: 1px solid #284475;
+  color: #c6c6c6;
+}
+
+.map-placeholder::before {
+  content: '\F1E6';
+  font-family: 'bootstrap-icons';
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  color: #4a6bdc;
+  opacity: 0.7;
+}
+
+/* Custom Popup Styles */
+:host ::ng-deep .leaflet-popup-content-wrapper {
+  background-color: #1a253b;
+  color: #c6c6c6;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  border: 1px solid #284475;
+}
+
+:host ::ng-deep .leaflet-popup-tip {
+  background-color: #1a253b;
+  border: 1px solid #284475;
+}
+
+:host ::ng-deep .popup-content {
+  padding: 0.5rem;
+}
+
+:host ::ng-deep .popup-content strong {
+  color: #ffffff;
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+}
+
+:host ::ng-deep .popup-content p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #8a8a8a;
+}
+
+/* Custom Car Marker */
+:host ::ng-deep .car-marker-container {
+  background: none;
+}
+
+:host ::ng-deep .car-marker {
+  width: 40px;
+  height: 40px;
+  background-color: #4a6bdc;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  border: 2px solid #ffffff;
+  color: #ffffff;
+  font-size: 1.25rem;
+  transform: translateY(-20px);
+}
+
+:host ::ng-deep .car-marker::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 10px solid #4a6bdc;
+}

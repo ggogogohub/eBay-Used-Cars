@@ -1,0 +1,482 @@
+/* Modern 3D Navigation Bar */
+.nav-3d {
+  background: #0f172a;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  height: 70px; /* Increased height for larger icons */
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  position: fixed;
+  width: 100%;
+  z-index: 1000;
+  padding: 0;
+  border-bottom: 1px solid rgba(59, 130, 246, 0.2);
+}
+
+/* Override Bootstrap nav-link styles */
+.nav-link {
+  padding: 0 !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+.navbar.scrolled {
+  height: 60px; /* Increased scrolled height */
+  background: rgba(15, 23, 42, 0.98);
+}
+
+/* Logo Styling */
+.logo-3d {
+  display: flex;
+  align-items: center;
+  font-weight: 800;
+  font-size: 1.5rem;
+  color: #ffffff;
+  letter-spacing: 0.5px;
+  padding: 0;
+  margin: 0;
+  margin-right: auto; /* Ensures logo stays on the left */
+  position: relative;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.logo-img-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 15px;
+  position: relative;
+  transition: all 0.3s ease;
+  height: 100%;
+}
+
+.logo-img {
+  height: 48px; /* Increased logo size */
+  width: auto;
+  transition: all 0.3s ease;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+.logo-text {
+  color: #ffffff;
+  position: relative;
+  transition: all 0.3s ease;
+  font-weight: 800;
+}
+
+.logo-3d:hover .logo-img {
+  filter: drop-shadow(0 0 8px rgba(59, 130, 246, 0.7));
+  transform: scale(1.05);
+}
+
+.logo-3d:hover .logo-text {
+  color: #60a5fa;
+}
+
+.navbar.scrolled .logo-3d {
+  transform: scale(0.95);
+}
+
+.navbar.scrolled .logo-img {
+  height: 40px; /* Slightly smaller when scrolled, but still larger than before */
+}
+
+/* Navigation Items Container */
+.nav-items-container {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  gap: 25px; /* Increased gap between navigation items */
+}
+
+/* Navigation Item */
+.nav-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+/* Navigation Button */
+.nav-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 0 35px; /* Further increased horizontal padding for wider buttons */
+  position: relative;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  background-color: transparent !important;
+  overflow: visible;
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+.nav-button:hover {
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+.nav-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transition: all 0.3s ease;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  width: 50px; /* Increased width for larger icons */
+  height: 50px; /* Increased height for larger icons */
+}
+
+.nav-button:hover .nav-icon {
+  transform: translateY(-5px) scale(1.1); /* Added scale effect */
+  background: transparent; /* Removed background */
+  box-shadow: none; /* Removed box shadow */
+}
+
+.nav-icon i {
+  font-size: 1.8rem; /* Increased icon size */
+  color: rgba(255, 255, 255, 0.8); /* Slightly increased opacity for better visibility */
+  transition: all 0.3s ease;
+}
+
+.nav-button:hover .nav-icon i {
+  color: #3b82f6;
+  filter: drop-shadow(0 0 8px rgba(59, 130, 246, 0.7));
+}
+
+.nav-button span {
+  font-size: 0.8rem; /* Slightly larger font */
+  font-weight: 600; /* Bolder text */
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+  opacity: 0;
+  position: absolute;
+  bottom: -18px; /* Positioned slightly lower */
+  left: 50%;
+  transform: translateX(-50%) translateY(5px);
+  pointer-events: none;
+  white-space: nowrap;
+  color: rgba(255, 255, 255, 0.7);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5); /* Added text shadow for better readability */
+}
+
+.nav-button:hover span {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+  color: #3b82f6;
+  filter: drop-shadow(0 0 5px rgba(59, 130, 246, 0.5)); /* Added glow effect */
+}
+
+/* Active Navigation Button */
+.nav-button.active {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
+
+.nav-button.active .nav-icon {
+  background: transparent; /* Removed background */
+  box-shadow: none; /* Removed box shadow */
+  transform: translateY(-3px);
+}
+
+.nav-button.active .nav-icon i {
+  color: #3b82f6;
+  filter: drop-shadow(0 0 10px rgba(59, 130, 246, 0.8));
+  animation: pulse-icon 2s infinite;
+  font-size: 2.2rem; /* Further increased size for active state */
+}
+
+.nav-button.active span {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+  color: #3b82f6;
+  font-weight: 600;
+}
+
+.nav-button.active::after {
+  content: '';
+  position: absolute;
+  bottom: 5px;
+  left: 50%;
+  width: 6px; /* Larger dot */
+  height: 6px; /* Larger dot */
+  background: #3b82f6;
+  border-radius: 50%;
+  transform: translateX(-50%);
+  box-shadow: 0 0 15px rgba(59, 130, 246, 0.9);
+  animation: pulse-dot 2s infinite;
+}
+
+@keyframes pulse-icon {
+  0% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 5px rgba(59, 130, 246, 0.5));
+  }
+  50% {
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 10px rgba(59, 130, 246, 0.8));
+  }
+  100% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 5px rgba(59, 130, 246, 0.5));
+  }
+}
+
+@keyframes pulse-dot {
+  0% {
+    transform: translateX(-50%) scale(1);
+    opacity: 0.7;
+  }
+  50% {
+    transform: translateX(-50%) scale(1.5);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(-50%) scale(1);
+    opacity: 0.7;
+  }
+}
+
+/* Logout Button Special Styling */
+.logout-button:hover .nav-icon i {
+  color: #e11d48;
+  filter: drop-shadow(0 0 5px rgba(225, 29, 72, 0.5));
+}
+
+.logout-button:hover span {
+  color: #e11d48;
+}
+
+.logout-button.active .nav-icon i {
+  color: #e11d48;
+  filter: drop-shadow(0 0 8px rgba(225, 29, 72, 0.7));
+  animation: pulse-icon-red 2s infinite;
+}
+
+.logout-button.active span {
+  color: #e11d48;
+}
+
+.logout-button.active::after {
+  background: #e11d48;
+  box-shadow: 0 0 10px rgba(225, 29, 72, 0.8);
+  animation: pulse-dot-red 2s infinite;
+}
+
+@keyframes pulse-icon-red {
+  0% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 5px rgba(225, 29, 72, 0.5));
+  }
+  50% {
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 10px rgba(225, 29, 72, 0.8));
+  }
+  100% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 5px rgba(225, 29, 72, 0.5));
+  }
+}
+
+@keyframes pulse-dot-red {
+  0% {
+    transform: translateX(-50%) scale(1);
+    opacity: 0.7;
+  }
+  50% {
+    transform: translateX(-50%) scale(1.5);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(-50%) scale(1);
+    opacity: 0.7;
+  }
+}
+
+/* Navbar Container */
+.navbar .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  padding: 0 30px;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* Navbar Collapse */
+.navbar-collapse {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  height: 100%;
+  margin-left: auto; /* Ensures navigation items are pushed to the right */
+}
+
+.navbar-nav {
+  gap: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-left: auto;
+}
+
+/* Navbar Toggler */
+.custom-toggler {
+  border: none;
+  background: transparent;
+  padding: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.custom-toggler:focus {
+  outline: none;
+}
+
+.custom-toggler:hover {
+  transform: translateY(-2px);
+}
+
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.9%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+/* Responsive Adjustments */
+@media (max-width: 991.98px) {
+  .nav-3d {
+    height: 65px; /* Slightly smaller on mobile */
+  }
+
+  .navbar.scrolled {
+    height: 55px;
+  }
+
+  .navbar-collapse {
+    position: absolute;
+    top: 65px;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+  }
+
+  .nav-items-container {
+    padding: 1.25rem 0;
+    gap: 15px;
+    background-color: rgba(15, 23, 42, 0.98);
+    border-top: 1px solid rgba(59, 130, 246, 0.2);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .nav-item {
+    width: 100%;
+    height: auto;
+  }
+
+  .nav-button {
+    flex-direction: row;
+    justify-content: flex-start;
+    padding: 12px 20px;
+    width: 100%;
+    height: auto;
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+  }
+
+  .nav-button:hover {
+    background-color: transparent !important; /* Removed hover background */
+  }
+
+  .nav-icon {
+    margin-right: 20px;
+    width: 40px; /* Increased width */
+    height: 40px; /* Increased height */
+  }
+
+  .nav-icon i {
+    font-size: 1.8rem; /* Increased icon size */
+  }
+
+  .nav-button span {
+    position: static;
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+    font-size: 1rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.9);
+    text-shadow: none;
+  }
+
+  .nav-button:hover span {
+    transform: none;
+    filter: none;
+  }
+
+  .nav-button:hover .nav-icon {
+    transform: none;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .nav-button.active {
+    background-color: transparent !important; /* Removed active background */
+  }
+
+  .nav-button.active .nav-icon {
+    background: transparent;
+    box-shadow: none;
+    transform: none;
+  }
+
+  .nav-button.active::after {
+    content: '';
+    position: absolute;
+    bottom: auto;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 70%;
+    border-radius: 2px;
+    background: #3b82f6;
+    animation: none;
+    box-shadow: 0 0 10px rgba(59, 130, 246, 0.7);
+  }
+
+  .nav-button.active .nav-icon i {
+    animation: none;
+    font-size: 1.6rem;
+  }
+
+  .logo-3d {
+    font-size: 1.4rem;
+  }
+
+  .logo-img {
+    height: 38px; /* Smaller logo on mobile but still larger than before */
+  }
+}

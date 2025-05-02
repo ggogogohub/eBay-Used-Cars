@@ -1,0 +1,94 @@
+<div class="image-upload-container">
+  <!-- Error message display -->
+  <div *ngIf="errorMessage" class="upload-alert">
+    <i class="bi bi-exclamation-triangle-fill me-2"></i>
+    {{ errorMessage }}
+  </div>
+
+  <!-- File input -->
+  <div class="file-upload-area">
+    <div class="file-upload-box">
+      <label for="fileInput" class="file-upload-label">
+        <i class="bi bi-cloud-arrow-up-fill upload-icon"></i>
+        <span class="upload-text">{{ multiple ? 'Drag & drop files here or click to browse' : 'Drag & drop a file here or click to browse' }}</span>
+      </label>
+      <input
+        type="file"
+        class="file-input"
+        id="fileInput"
+        [multiple]="multiple"
+        accept="image/*,video/*"
+        (change)="onFileSelected($event)"
+      >
+    </div>
+    <div class="upload-hint">
+      {{ multiple ? 'Select up to ' + maxFiles + ' images or videos (max 50MB each)' : 'Select an image or video (max 50MB)' }}
+    </div>
+  </div>
+
+  <!-- Preview of selected files -->
+  <div class="preview-container" *ngIf="previewUrls.length > 0">
+    <div class="preview-header">
+      <h6 class="preview-title"><i class="bi bi-images me-2"></i>Selected Files</h6>
+    </div>
+    <div class="preview-grid">
+      <div class="preview-item" *ngFor="let url of previewUrls; let i = index">
+        <div class="preview-card">
+          <!-- Video preview -->
+          <div class="preview-media">
+            <video *ngIf="previewTypes[i] === 'video'" [src]="url" class="preview-image" controls>
+              Your browser does not support the video tag.
+            </video>
+            <!-- Image preview -->
+            <img *ngIf="previewTypes[i] !== 'video'" [src]="url" class="preview-image" alt="Preview">
+            <div class="preview-type" *ngIf="previewTypes[i] === 'video'">
+              <i class="bi bi-film"></i>
+            </div>
+          </div>
+          <div class="preview-actions">
+            <button
+              type="button"
+              class="btn-remove"
+              (click)="i < existingImages.length ? removeExistingImage(i) : removeFile(i - existingImages.length)"
+            >
+              <i class="bi bi-trash-fill me-1"></i>
+              Remove
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Upload progress -->
+  <div *ngIf="isUploading" class="upload-progress-container">
+    <div class="upload-progress-label">
+      <i class="bi bi-arrow-up-circle me-2"></i>
+      Uploading files... {{ uploadProgress }}%
+    </div>
+    <div class="upload-progress">
+      <div
+        class="upload-progress-bar"
+        role="progressbar"
+        [style.width.%]="uploadProgress"
+        [attr.aria-valuenow]="uploadProgress"
+        aria-valuemin="0"
+        aria-valuemax="100"
+      ></div>
+    </div>
+  </div>
+
+  <!-- Upload button -->
+  <div class="upload-actions" *ngIf="selectedFiles.length > 0">
+    <button
+      type="button"
+      class="btn-upload"
+      [disabled]="isUploading"
+      (click)="uploadFiles()"
+    >
+      <span *ngIf="isUploading" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+      <i *ngIf="!isUploading" class="bi bi-cloud-upload-fill me-2"></i>
+      UPLOAD {{ multiple ? 'FILES' : 'FILE' }}
+    </button>
+  </div>
+</div>

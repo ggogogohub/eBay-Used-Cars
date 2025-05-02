@@ -1,0 +1,111 @@
+/* Import modern dark theme */
+@import url('modern-theme.css');
+
+/* Import 3D effects */
+@import url('3d-effects.css');
+
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+/* Global background styles */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: var(--dark-bg);
+  background-image:
+    linear-gradient(to bottom right, rgba(37, 99, 235, 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 15% 85%, rgba(124, 58, 237, 0.08) 0%, transparent 40%),
+    radial-gradient(circle at 85% 15%, rgba(225, 29, 72, 0.05) 0%, transparent 40%);
+  background-attachment: fixed;
+}
+
+/* Leaflet Map Styles - Dark Theme */
+.leaflet-container {
+  height: 100%;
+  width: 100%;
+  border-radius: var(--border-radius);
+  box-shadow: var(--card-shadow);
+  filter: brightness(0.85) contrast(1.1);
+}
+
+.leaflet-popup-content-wrapper {
+  background-color: var(--card-bg);
+  color: var(--text-primary);
+  border-radius: var(--border-radius-sm);
+  box-shadow: var(--card-shadow);
+  border: 1px solid var(--border-color);
+}
+
+.leaflet-popup-content {
+  margin: 13px 19px;
+  line-height: 1.4;
+}
+
+.leaflet-popup-tip {
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+}
+
+.leaflet-control-zoom {
+  border-radius: var(--border-radius-sm);
+  box-shadow: var(--card-shadow);
+}
+
+.leaflet-control-zoom a {
+  background-color: var(--card-bg) !important;
+  color: var(--text-primary) !important;
+  border-color: var(--border-color) !important;
+}
+
+.leaflet-control-zoom a:hover {
+  background-color: var(--card-hover-bg) !important;
+}
+
+/* Custom popup styles - Dark Theme */
+.popup-content {
+  text-align: center;
+  padding: 5px;
+}
+
+.popup-content strong {
+  display: block;
+  margin-bottom: 5px;
+  color: var(--primary-color);
+}
+
+.popup-content p {
+  margin: 0;
+  font-size: 0.9em;
+  color: var(--text-secondary);
+}
+
+/* Custom car marker styles - Dark Theme */
+.car-marker-container {
+  background: none;
+  border: none;
+}
+
+.car-marker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  background-color: var(--primary-color);
+  border-radius: 50%;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  color: white;
+  font-size: 16px;
+  border: 2px solid var(--card-bg);
+  transition: all var(--transition-speed);
+}
+
+.car-marker:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+.car-marker i {
+  margin-top: 2px;
+}

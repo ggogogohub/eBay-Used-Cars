@@ -1,0 +1,4 @@
+<div [id]="'map-' + mapId" [style.height]="height" class="map-container"></div>
+<div *ngIf="!coordinates" class="map-placeholder">
+  <p>No location coordinates available</p>
+</div>

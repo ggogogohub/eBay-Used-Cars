@@ -1,0 +1,85 @@
+<div class="navbar navbar-expand-lg navbar-dark fixed-top nav-3d" [ngClass]="{'scrolled': isScrolled}">
+  <div class="container">
+    <!-- Logo aligned to the left -->
+    <a class="navbar-brand logo-3d" [routerLink]="'/'">
+      <div class="logo-img-container">
+        <img src="assets/ebay_logo.png" alt="eBay Used Cars Logo" class="logo-img">
+      </div>
+      <span class="logo-text">eBay Used Cars</span>
+    </a>
+
+    <button class="navbar-toggler custom-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Navigation buttons aligned to the right -->
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto nav-items-container">
+        <li class="nav-item">
+          <a class="nav-link nav-button" [routerLink]="'/'" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+            <div class="nav-icon">
+              <i class="bi bi-house-door"></i>
+            </div>
+            <span>Home</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link nav-button" [routerLink]="'/listings'" routerLinkActive="active">
+            <div class="nav-icon">
+              <i class="bi bi-grid-3x3-gap"></i>
+            </div>
+            <span>Listings</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link nav-button" [routerLink]="'/statistics'" routerLinkActive="active">
+            <div class="nav-icon">
+              <i class="bi bi-bar-chart"></i>
+            </div>
+            <span>Statistics</span>
+          </a>
+        </li>
+        <li class="nav-item" *ngIf="isLoggedIn && isAdmin">
+          <a class="nav-link nav-button" [routerLink]="'/admin'" routerLinkActive="active">
+            <div class="nav-icon">
+              <i class="bi bi-shield-lock"></i>
+            </div>
+            <span>Admin</span>
+          </a>
+        </li>
+        <li class="nav-item" *ngIf="isLoggedIn && isSeller">
+          <a class="nav-link nav-button" [routerLink]="'/create-listing'" routerLinkActive="active">
+            <div class="nav-icon">
+              <i class="bi bi-plus-circle"></i>
+            </div>
+            <span>Create</span>
+          </a>
+        </li>
+        <li class="nav-item" *ngIf="isLoggedIn">
+          <a class="nav-link nav-button" [routerLink]="'/profile'" routerLinkActive="active">
+            <div class="nav-icon">
+              <i class="bi bi-person-circle"></i>
+            </div>
+            <span>Profile</span>
+          </a>
+        </li>
+        <li class="nav-item" *ngIf="!isLoggedIn">
+          <a class="nav-link nav-button" [routerLink]="'/auth'" routerLinkActive="active">
+            <div class="nav-icon">
+              <i class="bi bi-box-arrow-in-right"></i>
+            </div>
+            <span>Login</span>
+          </a>
+        </li>
+        <li class="nav-item" *ngIf="isLoggedIn">
+          <a class="nav-link nav-button logout-button" href="#" (click)="logout($event)">
+            <div class="nav-icon">
+              <i class="bi bi-box-arrow-right"></i>
+            </div>
+            <span>Logout</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

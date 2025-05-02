@@ -1,0 +1,339 @@
+<div class="container mt-5 pt-5">
+  <div class="row">
+    <div class="col-12">
+      <h1 class="admin-heading mb-2">Admin Dashboard</h1>
+      <div class="heading-underline mb-4"></div>
+      <p class="lead mb-5">Manage listings and users</p>
+    </div>
+  </div>
+
+  <!-- Access Denied -->
+  <div class="row" *ngIf="!isAdmin">
+    <div class="col-12">
+      <div class="alert alert-danger frosted-glass">
+        <div class="alert-icon">
+          <i class="bi bi-shield-exclamation"></i>
+        </div>
+        <div class="alert-content">
+          <h4 class="alert-heading text-3d">Access Denied</h4>
+          <p>You do not have permission to access this page. This area is restricted to administrators only.</p>
+          <hr>
+          <p class="mb-0">Please contact the system administrator if you believe this is an error.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Admin Content -->
+  <div *ngIf="isAdmin" class="admin-content">
+    <!-- Tabs -->
+    <div class="admin-tabs mb-5">
+      <ul class="nav nav-tabs">
+        <li class="nav-item">
+          <a class="nav-link" [class.active]="activeTab === 'listings'" (click)="switchTab('listings')" href="javascript:void(0)">
+            <i class="bi bi-card-list me-2"></i>Reported & Sold Listings
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [class.active]="activeTab === 'users'" (click)="switchTab('users')" href="javascript:void(0)">
+            <i class="bi bi-people-fill me-2"></i>User Management
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Alerts -->
+    <div class="row mb-4" *ngIf="actionError || actionSuccess">
+      <div class="col-12">
+        <div class="alert alert-danger frosted-glass" *ngIf="actionError">
+          <i class="bi bi-exclamation-triangle-fill me-2"></i>{{ actionError }}
+        </div>
+        <div class="alert alert-success frosted-glass" *ngIf="actionSuccess">
+          <i class="bi bi-check-circle-fill me-2"></i>{{ actionSuccess }}
+        </div>
+      </div>
+    </div>
+
+    <!-- Loading State -->
+    <div class="row" *ngIf="isLoading">
+      <div class="col-12 text-center loading-container">
+        <div class="spinner-border text-primary pulse" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <p class="mt-3 loading-text">Loading data...</p>
+      </div>
+    </div>
+
+    <!-- Listings Tab Content -->
+    <div *ngIf="activeTab === 'listings' && !isLoading" class="tab-content-container">
+      <!-- Reported Listings -->
+      <div class="card dark-card mb-5">
+        <div class="card-header listing-header-reported">
+          <h2 class="h5 mb-0"><i class="bi bi-shield-exclamation me-2"></i>Reported Listings</h2>
+        </div>
+        <div class="card-body p-4">
+          <div *ngIf="reportedListings.length === 0" class="empty-state">
+            <i class="bi bi-clipboard-x empty-icon mb-3"></i>
+            <p class="text-muted">No reported listings found.</p>
+          </div>
+
+          <div class="table-responsive custom-table" *ngIf="reportedListings.length > 0">
+            <table class="table dark-table">
+              <thead>
+                <tr>
+                  <th>VEHICLE MODEL</th>
+                  <th>PRICE</th>
+                  <th>SELLER</th>
+                  <th>STATUS</th>
+                  <th>ACTIONS</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let listing of reportedListings" class="table-row">
+                  <td>
+                    <a [routerLink]="['/listings', listing._id]" class="model-link">{{ listing.vehicle_model }}</a>
+                  </td>
+                  <td class="price-cell">${{ listing.price }}</td>
+                  <td>{{ listing.seller }}</td>
+                  <td><span class="badge status-badge reported">REPORTED</span></td>
+                  <td>
+                    <button class="btn btn-delete" (click)="openDeleteListingModal(listing)">
+                      DELETE
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sold Listings -->
+      <div class="card dark-card mb-5">
+        <div class="card-header listing-header-sold">
+          <h2 class="h5 mb-0"><i class="bi bi-check-circle me-2"></i>Sold Listings</h2>
+        </div>
+        <div class="card-body p-4">
+          <div *ngIf="soldListings.length === 0" class="empty-state">
+            <i class="bi bi-clipboard-x empty-icon mb-3"></i>
+            <p class="text-muted">No sold listings found.</p>
+          </div>
+
+          <div class="table-responsive custom-table" *ngIf="soldListings.length > 0">
+            <table class="table dark-table">
+              <thead>
+                <tr>
+                  <th>VEHICLE MODEL</th>
+                  <th>PRICE</th>
+                  <th>SELLER</th>
+                  <th>STATUS</th>
+                  <th>ACTIONS</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let listing of soldListings" class="table-row">
+                  <td>
+                    <a [routerLink]="['/listings', listing._id]" class="model-link">{{ listing.vehicle_model }}</a>
+                  </td>
+                  <td class="price-cell">${{ listing.price }}</td>
+                  <td>{{ listing.seller }}</td>
+                  <td><span class="badge status-badge sold">SOLD</span></td>
+                  <td>
+                    <button class="btn btn-delete" (click)="openDeleteListingModal(listing)">
+                      DELETE
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Users Tab Content -->
+    <div *ngIf="activeTab === 'users' && !isLoading" class="tab-content-container">
+      <div class="card dark-card mb-5">
+        <div class="card-header listing-header-active">
+          <h2 class="h5 mb-0"><i class="bi bi-people-fill me-2"></i>User Management</h2>
+        </div>
+        <div class="card-body p-4">
+          <div *ngIf="users.length === 0" class="empty-state">
+            <i class="bi bi-clipboard-x empty-icon mb-3"></i>
+            <p class="text-muted">No users found.</p>
+          </div>
+
+          <div class="table-responsive custom-table" *ngIf="users.length > 0">
+            <table class="table dark-table">
+              <thead>
+                <tr>
+                  <th>USERNAME</th>
+                  <th>ROLE</th>
+                  <th>ACTIONS</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let user of users" class="table-row">
+                  <td class="username-cell">{{ user.username }}</td>
+                  <td>
+                    <span class="badge role-badge" [ngClass]="{
+                      'buyer': user.role === 'buyer',
+                      'seller': user.role === 'seller',
+                      'admin': user.role === 'admin'
+                    }">
+                      {{ user.role | uppercase }}
+                    </span>
+                  </td>
+                  <td class="actions-cell">
+                    <button class="btn btn-change-role me-2" (click)="openChangeRoleModal(user)">
+                      CHANGE ROLE
+                    </button>
+                    <button class="btn btn-delete" (click)="openDeleteUserModal(user)">
+                      DELETE
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Delete Listing Modal -->
+  <div class="modal custom-modal" [class.show]="showDeleteListingModal" [style.display]="showDeleteListingModal ? 'block' : 'none'">
+    <div class="modal-dialog">
+      <div class="modal-content dark-modal">
+        <div class="modal-header modal-header-danger">
+          <h5 class="modal-title"><i class="bi bi-trash me-2"></i>Delete Listing</h5>
+          <button type="button" class="btn-close btn-close-white" (click)="closeDeleteListingModal()"></button>
+        </div>
+        <div class="modal-body">
+          <div class="modal-icon-container">
+            <i class="bi bi-exclamation-triangle-fill modal-icon"></i>
+          </div>
+          <p class="text-center mb-4 modal-text">Are you sure you want to delete this listing?</p>
+          <div class="listing-details" *ngIf="listingToDelete">
+            <div class="detail-row">
+              <span class="detail-label">Vehicle:</span>
+              <span class="detail-value">{{ listingToDelete?.vehicle_model }}</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Price:</span>
+              <span class="detail-value">${{ listingToDelete?.price }}</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Status:</span>
+              <span class="detail-value">{{ listingToDelete?.status | titlecase }}</span>
+            </div>
+          </div>
+          <p class="warning-text">This action cannot be undone.</p>
+
+          <div *ngIf="actionError" class="alert alert-danger mt-3">
+            {{ actionError }}
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-cancel" (click)="closeDeleteListingModal()">
+            CANCEL
+          </button>
+          <button type="button" class="btn btn-delete-confirm" (click)="deleteListing()" [disabled]="actionInProgress">
+            <span *ngIf="actionInProgress" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+            DELETE LISTING
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Delete User Modal -->
+  <div class="modal custom-modal" [class.show]="showDeleteUserModal" [style.display]="showDeleteUserModal ? 'block' : 'none'">
+    <div class="modal-dialog">
+      <div class="modal-content dark-modal">
+        <div class="modal-header modal-header-danger">
+          <h5 class="modal-title"><i class="bi bi-person-x me-2"></i>Delete User</h5>
+          <button type="button" class="btn-close btn-close-white" (click)="closeDeleteUserModal()"></button>
+        </div>
+        <div class="modal-body">
+          <div class="modal-icon-container">
+            <i class="bi bi-exclamation-triangle-fill modal-icon"></i>
+          </div>
+          <p class="text-center mb-4 modal-text">Are you sure you want to delete this user?</p>
+          <div class="user-details" *ngIf="userToDelete">
+            <div class="detail-row">
+              <span class="detail-label">Username:</span>
+              <span class="detail-value">{{ userToDelete?.username }}</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Role:</span>
+              <span class="detail-value">{{ userToDelete?.role | titlecase }}</span>
+            </div>
+          </div>
+          <p class="warning-text">This action cannot be undone. All listings and reviews by this user will also be deleted.</p>
+
+          <div *ngIf="actionError" class="alert alert-danger mt-3">
+            {{ actionError }}
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-cancel" (click)="closeDeleteUserModal()">
+            CANCEL
+          </button>
+          <button type="button" class="btn btn-delete-confirm" (click)="deleteUser()" [disabled]="actionInProgress">
+            <span *ngIf="actionInProgress" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+            DELETE USER
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Change Role Modal -->
+  <div class="modal custom-modal" [class.show]="showChangeRoleModal" [style.display]="showChangeRoleModal ? 'block' : 'none'">
+    <div class="modal-dialog">
+      <div class="modal-content dark-modal">
+        <div class="modal-header modal-header-primary">
+          <h5 class="modal-title"><i class="bi bi-person-gear me-2"></i>Change User Role</h5>
+          <button type="button" class="btn-close btn-close-white" (click)="closeChangeRoleModal()"></button>
+        </div>
+        <div class="modal-body">
+          <div class="user-details mb-4" *ngIf="userToChangeRole">
+            <div class="detail-row">
+              <span class="detail-label">Username:</span>
+              <span class="detail-value">{{ userToChangeRole?.username }}</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Current Role:</span>
+              <span class="detail-value">{{ userToChangeRole?.role | titlecase }}</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="newRole" class="form-label">New Role:</label>
+            <select class="form-select dark-select" id="newRole" [(ngModel)]="newRole">
+              <option value="buyer">Buyer</option>
+              <option value="seller">Seller</option>
+              <option value="admin">Admin</option>
+            </select>
+          </div>
+
+          <div *ngIf="actionError" class="alert alert-danger mt-3">
+            {{ actionError }}
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-cancel" (click)="closeChangeRoleModal()">
+            CANCEL
+          </button>
+          <button type="button" class="btn btn-update" (click)="changeUserRole()" [disabled]="actionInProgress">
+            <span *ngIf="actionInProgress" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+            UPDATE ROLE
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Backdrop -->
+  <div class="modal-backdrop fade show" *ngIf="showDeleteListingModal || showDeleteUserModal || showChangeRoleModal"></div>
+</div>

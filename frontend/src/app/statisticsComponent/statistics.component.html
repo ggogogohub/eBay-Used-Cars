@@ -1,0 +1,121 @@
+<div class="container mt-5 pt-5">
+  <div class="row">
+    <div class="col-12">
+      <h1 class="gradient-heading mb-2">Market Statistics</h1>
+      <div class="heading-underline mb-4"></div>
+      <p class="lead mb-5">Get insights into our used car marketplace with these statistics.</p>
+    </div>
+  </div>
+
+  <!-- Loading and Error States -->
+  <div *ngIf="isLoading" class="text-center my-5 loading-container">
+    <div class="spinner-border text-primary pulse" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    <p class="mt-3 loading-text">Loading statistics...</p>
+  </div>
+
+  <div *ngIf="error" class="alert alert-danger frosted-glass">
+    <i class="bi bi-exclamation-triangle-fill me-2"></i>
+    {{ error }}
+  </div>
+
+  <!-- Statistics Content -->
+  <div *ngIf="!isLoading && !error" class="statistics-content">
+    <!-- Summary Statistics Card -->
+    <div class="row mb-5">
+      <div class="col-12">
+        <div class="card frosted-glass glow-border card-3d">
+          <div class="card-header listing-header-active">
+            <h2 class="h5 mb-0 text-3d"><i class="bi bi-graph-up me-2"></i>Market Overview</h2>
+          </div>
+          <div class="card-body p-4">
+            <div class="row g-4">
+              <div class="col-md-3 text-center">
+                <div class="stat-card neumorphic">
+                  <div class="stat-icon-container">
+                    <i class="bi bi-tag-fill stat-icon float"></i>
+                  </div>
+                  <h3 class="stat-value text-3d">{{ summary.total_listings || 0 }}</h3>
+                  <p class="stat-label">Active Listings</p>
+                </div>
+              </div>
+              <div class="col-md-3 text-center">
+                <div class="stat-card neumorphic">
+                  <div class="stat-icon-container">
+                    <i class="bi bi-cash-stack stat-icon float"></i>
+                  </div>
+                  <h3 class="stat-value text-3d">${{ summary.average_price || 0 | number:'1.0-0' }}</h3>
+                  <p class="stat-label">Average Price</p>
+                </div>
+              </div>
+              <div class="col-md-3 text-center">
+                <div class="stat-card neumorphic">
+                  <div class="stat-icon-container">
+                    <i class="bi bi-arrow-down-circle-fill stat-icon float"></i>
+                  </div>
+                  <h3 class="stat-value text-3d">${{ summary.min_price || 0 | number:'1.0-0' }}</h3>
+                  <p class="stat-label">Lowest Price</p>
+                </div>
+              </div>
+              <div class="col-md-3 text-center">
+                <div class="stat-card neumorphic">
+                  <div class="stat-icon-container">
+                    <i class="bi bi-arrow-up-circle-fill stat-icon float"></i>
+                  </div>
+                  <h3 class="stat-value text-3d">${{ summary.max_price || 0 | number:'1.0-0' }}</h3>
+                  <p class="stat-label">Highest Price</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Car Types Distribution and Average Price -->
+    <div class="row mb-5">
+      <!-- Car Types Distribution -->
+      <div class="col-md-6 mb-4 mb-md-0">
+        <div class="card h-100 frosted-glass glow-border floating-card">
+          <div class="card-header listing-header-active">
+            <h2 class="h5 mb-0 text-3d"><i class="bi bi-car-front me-2"></i>Listings by Car Type</h2>
+          </div>
+          <div class="card-body p-4">
+            <div *ngIf="countsByType.length === 0" class="text-center py-4 empty-state">
+              <i class="bi bi-clipboard-x empty-icon mb-3"></i>
+              <p class="text-muted">No data available</p>
+            </div>
+            <ul class="list-group list-group-flush stat-list" *ngIf="countsByType.length > 0">
+              <li class="list-group-item d-flex justify-content-between align-items-center type-item" *ngFor="let item of countsByType">
+                <span class="item-label"><i class="bi bi-car-front-fill me-2"></i>{{ item._id | titlecase }}</span>
+                <span class="badge count-badge">{{ item.count }}</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Average Price by Car Type -->
+      <div class="col-md-6">
+        <div class="card h-100 frosted-glass glow-border floating-card">
+          <div class="card-header listing-header-active">
+            <h2 class="h5 mb-0 text-3d"><i class="bi bi-currency-dollar me-2"></i>Average Price by Car Type</h2>
+          </div>
+          <div class="card-body p-4">
+            <div *ngIf="averagePriceByType.length === 0" class="text-center py-4 empty-state">
+              <i class="bi bi-clipboard-x empty-icon mb-3"></i>
+              <p class="text-muted">No data available</p>
+            </div>
+            <ul class="list-group list-group-flush stat-list" *ngIf="averagePriceByType.length > 0">
+              <li class="list-group-item d-flex justify-content-between align-items-center price-item" *ngFor="let item of averagePriceByType">
+                <span class="item-label"><i class="bi bi-car-front-fill me-2"></i>{{ item._id | titlecase }}</span>
+                <span class="badge price-badge">${{ item.average_price | number:'1.0-0' }}</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

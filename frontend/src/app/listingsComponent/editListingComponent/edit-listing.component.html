@@ -1,0 +1,159 @@
+<div class="edit-listing-container">
+  <div class="edit-listing-header">
+    <h1 class="edit-listing-title">Edit Listing</h1>
+  </div>
+
+  <!-- Loading State -->
+  <div class="loading-container" *ngIf="isLoading">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    <p class="mt-2">Loading listing...</p>
+  </div>
+
+  <!-- Error Message -->
+  <div class="error-container" *ngIf="errorMessage">
+    <div class="alert alert-danger">{{ errorMessage }}</div>
+  </div>
+
+  <!-- Success Message -->
+  <div class="success-container" *ngIf="successMessage">
+    <div class="alert alert-success">{{ successMessage }}</div>
+  </div>
+
+  <!-- Edit Form -->
+  <div class="edit-form-container" *ngIf="!isLoading && !successMessage">
+    <div class="card dark-card">
+      <div class="card-header">
+        <h4 class="mb-0"><i class="bi bi-pencil-square me-2"></i>Edit Your Listing</h4>
+      </div>
+      <div class="card-body">
+        <form (ngSubmit)="updateListing()">
+          <!-- Vehicle Model -->
+          <div class="mb-3">
+            <label for="vehicleModel" class="form-label">Vehicle Model</label>
+            <input 
+              type="text" 
+              class="form-control" 
+              id="vehicleModel" 
+              [(ngModel)]="listing.vehicle_model" 
+              name="vehicle_model" 
+              required
+              placeholder="e.g. Toyota Camry 2020"
+            >
+          </div>
+
+          <!-- Price and Mileage (side by side) -->
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <label for="price" class="form-label">Price ($)</label>
+              <input 
+                type="number" 
+                class="form-control" 
+                id="price" 
+                [(ngModel)]="listing.price" 
+                name="price" 
+                required
+                min="1"
+                placeholder="e.g. 25000"
+              >
+            </div>
+            <div class="col-md-6">
+              <label for="mileage" class="form-label">Mileage</label>
+              <input 
+                type="number" 
+                class="form-control" 
+                id="mileage" 
+                [(ngModel)]="listing.mileage" 
+                name="mileage" 
+                required
+                min="0"
+                placeholder="e.g. 15000"
+              >
+            </div>
+          </div>
+
+          <!-- Location with Map Preview -->
+          <div class="mb-3">
+            <label for="location" class="form-label">Location</label>
+            <div class="input-group">
+              <input 
+                type="text" 
+                class="form-control" 
+                id="location" 
+                [(ngModel)]="listing.location" 
+                name="location" 
+                required
+                placeholder="e.g. New York, NY"
+              >
+              <button 
+                type="button" 
+                class="btn btn-outline-secondary" 
+                (click)="previewLocation()"
+              >
+                Preview
+              </button>
+            </div>
+            <small class="form-text text-muted">Enter a city, state, or full address</small>
+          </div>
+
+          <!-- Map Preview (if coordinates are available) -->
+          <div class="mb-3" *ngIf="previewCoordinates">
+            <label class="form-label">Location Preview</label>
+            <div class="map-container">
+              <app-map [coordinates]="previewCoordinates" [zoom]="13"></app-map>
+            </div>
+          </div>
+
+          <!-- Car Type -->
+          <div class="mb-3">
+            <label for="carType" class="form-label">Car Type</label>
+            <select 
+              class="form-select" 
+              id="carType" 
+              [(ngModel)]="listing.car_type" 
+              name="car_type" 
+              required
+            >
+              <option value="" disabled>Select a car type</option>
+              <option *ngFor="let type of carTypes" [value]="type">
+                {{ type | titlecase }}
+              </option>
+            </select>
+          </div>
+
+          <!-- Image Upload -->
+          <div class="mb-3">
+            <label class="form-label">Images</label>
+            <app-image-upload
+              [multiple]="true"
+              [maxFiles]="5"
+              [existingImages]="listing.images"
+              (imagesUploaded)="onImagesUploaded($event)"
+            ></app-image-upload>
+            <small class="form-text text-muted">Upload at least one image of your vehicle</small>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="d-flex justify-content-between mt-4">
+            <button 
+              type="button" 
+              class="btn btn-secondary" 
+              (click)="cancelEdit()"
+            >
+              Cancel
+            </button>
+            <button 
+              type="submit" 
+              class="btn btn-primary" 
+              [disabled]="isSaving"
+            >
+              <span *ngIf="isSaving" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+              Update Listing
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

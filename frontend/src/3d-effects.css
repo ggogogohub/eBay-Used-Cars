@@ -1,0 +1,428 @@
+/* Modern 3D Effects CSS */
+
+/* 3D Navigation Effects */
+.nav-3d-icon {
+  transform-style: preserve-3d;
+  perspective: 800px;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.nav-3d-icon:hover {
+  transform: translateZ(10px) rotateY(15deg);
+}
+
+.nav-3d-button {
+  position: relative;
+  transform-style: preserve-3d;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+}
+
+.nav-3d-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(124, 58, 237, 0.2));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+  transform: translateZ(-1px);
+}
+
+.nav-3d-button:hover {
+  transform: translateY(-3px) translateZ(5px);
+}
+
+.nav-3d-button:hover::before {
+  opacity: 1;
+}
+
+.nav-3d-text {
+  position: relative;
+  transform-style: preserve-3d;
+  transition: all 0.3s ease;
+}
+
+.nav-3d-text:hover {
+  transform: translateZ(5px);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Neumorphic Card Effect */
+.neumorphic {
+  background: var(--card-bg);
+  border-radius: var(--border-radius);
+  box-shadow:
+    8px 8px 16px rgba(0, 0, 0, 0.25),
+    -8px -8px 16px rgba(255, 255, 255, 0.03);
+  transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.neumorphic:hover {
+  box-shadow:
+    12px 12px 20px rgba(0, 0, 0, 0.3),
+    -12px -12px 20px rgba(255, 255, 255, 0.05);
+  transform: translateY(-5px);
+}
+
+/* Floating Card Effect */
+.floating-card {
+  transform-style: preserve-3d;
+  perspective: 1000px;
+  transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.floating-card:hover {
+  transform: translateY(-10px) rotateX(5deg) rotateY(5deg);
+  box-shadow: 0 20px 30px rgba(0, 0, 0, 0.4);
+}
+
+/* 3D Card Hover Effect */
+.card-3d {
+  transform-style: preserve-3d;
+  perspective: 1000px;
+  transition: all 0.3s ease;
+}
+
+.card-3d:hover {
+  transform: rotateY(5deg) rotateX(5deg) translateZ(10px);
+  box-shadow:
+    -5px 5px 15px rgba(0, 0, 0, 0.3),
+    5px -5px 15px rgba(255, 255, 255, 0.05);
+}
+
+/* Floating Animation */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Pulse Animation */
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.8;
+  }
+}
+
+.pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Glow Effect */
+.glow {
+  position: relative;
+  overflow: hidden;
+}
+
+.glow::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.1) 0%,
+    rgba(255, 255, 255, 0) 70%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.glow:hover::after {
+  opacity: 1;
+}
+
+/* 3D Button Effect */
+.btn-3d {
+  position: relative;
+  transform-style: preserve-3d;
+  transition: all 0.2s ease;
+}
+
+.btn-3d::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.2);
+  transform: translateZ(-5px);
+  border-radius: inherit;
+  transition: all 0.2s ease;
+}
+
+.btn-3d:hover {
+  transform: translateY(-3px) translateZ(0);
+}
+
+.btn-3d:active {
+  transform: translateY(1px) translateZ(0);
+}
+
+/* Parallax Effect */
+.parallax-container {
+  perspective: 1000px;
+  overflow: hidden;
+}
+
+.parallax-layer {
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.1s ease-out;
+}
+
+/* Tilt Effect */
+.tilt {
+  transform-style: preserve-3d;
+  transform: perspective(1000px);
+  transition: transform 0.1s ease;
+}
+
+.tilt-inner {
+  transform-style: preserve-3d;
+  transition: transform 0.1s ease;
+}
+
+/* Neon Text Effect */
+.neon-text {
+  text-shadow:
+    0 0 5px rgba(58, 134, 255, 0.5),
+    0 0 10px rgba(58, 134, 255, 0.3),
+    0 0 15px rgba(58, 134, 255, 0.2);
+  transition: text-shadow 0.3s ease;
+}
+
+.neon-text:hover {
+  text-shadow:
+    0 0 5px rgba(58, 134, 255, 0.8),
+    0 0 10px rgba(58, 134, 255, 0.6),
+    0 0 15px rgba(58, 134, 255, 0.4),
+    0 0 20px rgba(58, 134, 255, 0.2);
+}
+
+/* Gradient Border */
+.gradient-border {
+  position: relative;
+  border-radius: var(--border-radius);
+  background: var(--card-bg);
+}
+
+.gradient-border::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+  border-radius: calc(var(--border-radius) + 2px);
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.gradient-border:hover::before {
+  opacity: 1;
+}
+
+/* Shine Effect */
+.shine {
+  position: relative;
+  overflow: hidden;
+}
+
+.shine::after {
+  content: '';
+  position: absolute;
+  top: -100%;
+  left: -100%;
+  width: 50%;
+  height: 300%;
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.1) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: rotate(30deg);
+  transition: transform 0.5s ease;
+}
+
+.shine:hover::after {
+  transform: rotate(30deg) translateX(300%);
+}
+
+/* 3D Text */
+.text-3d {
+  text-shadow:
+    0px 1px 0px rgba(255, 255, 255, 0.1),
+    0px 2px 0px rgba(0, 0, 0, 0.5);
+  transform: translateZ(0);
+}
+
+/* Depth Effect */
+.depth-effect {
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.1),
+    0 0 0 1px rgba(0, 0, 0, 0.2),
+    0 3px 5px rgba(0, 0, 0, 0.2),
+    0 5px 10px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+.depth-effect:hover {
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.2),
+    0 0 0 1px rgba(0, 0, 0, 0.3),
+    0 5px 10px rgba(0, 0, 0, 0.3),
+    0 10px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* Layered Card Effect */
+.layered-card {
+  position: relative;
+}
+
+.layered-card::before,
+.layered-card::after {
+  content: '';
+  position: absolute;
+  border-radius: inherit;
+  transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+  pointer-events: none;
+}
+
+.layered-card::before {
+  top: 5px;
+  left: 5px;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  opacity: 0.1;
+  z-index: -1;
+}
+
+.layered-card::after {
+  top: 10px;
+  left: 10px;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, var(--secondary-color), var(--accent-color));
+  opacity: 0.05;
+  z-index: -2;
+}
+
+.layered-card:hover::before {
+  top: -5px;
+  left: -5px;
+  opacity: 0.15;
+}
+
+.layered-card:hover::after {
+  top: -10px;
+  left: -10px;
+  opacity: 0.1;
+}
+
+/* Glowing Border Effect */
+.glow-border {
+  position: relative;
+  border: 1px solid transparent;
+  background-clip: padding-box;
+  transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.glow-border::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+  margin: -1px;
+  border-radius: inherit;
+  background: linear-gradient(
+    45deg,
+    var(--primary-color),
+    var(--secondary-color),
+    var(--accent-color),
+    var(--primary-color)
+  );
+  background-size: 400% 400%;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.glow-border:hover::before {
+  opacity: 1;
+  animation: gradient-shift 3s ease infinite;
+}
+
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Frosted Glass Effect */
+.frosted-glass {
+  background: rgba(30, 41, 59, 0.5);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+/* Ripple Effect */
+.ripple {
+  position: relative;
+  overflow: hidden;
+}
+
+.ripple::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.3) 10%, transparent 10.01%);
+  background-repeat: no-repeat;
+  background-position: 50%;
+  transform: scale(10, 10);
+  opacity: 0;
+  transition: transform 0.5s, opacity 0.8s;
+}
+
+.ripple:active::after {
+  transform: scale(0, 0);
+  opacity: 0.3;
+  transition: 0s;
+}
