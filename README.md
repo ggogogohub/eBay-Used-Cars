@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-This full-stack web application was developed as part of the Advanced Web Development module at Ulster University. The project implements a comprehensive online marketplace for used cars, inspired by eBay Motors, allowing users to browse, buy, and sell used vehicles. The application demonstrates proficiency in modern web development technologies, security implementation, and responsive design principles.
+This full-stack web application was developed as part of assignment at Ulster University. The project implements a comprehensive online marketplace for used cars, inspired by eBay Motors, allowing users to browse, buy, and sell used vehicles. The application demonstrates proficiency in modern web development technologies, security implementation, and responsive design principles.
 
 ## Table of Contents
 
